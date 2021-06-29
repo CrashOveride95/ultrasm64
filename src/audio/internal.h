@@ -56,11 +56,12 @@
 #define stubbed_printf(...)
 #endif
 #endif
+#define true_stubbed_printf(...)
 
-#define eu_stubbed_printf_0(msg) stubbed_printf(msg)
-#define eu_stubbed_printf_1(msg, a) stubbed_printf(msg, a)
-#define eu_stubbed_printf_2(msg, a, b) stubbed_printf(msg, a, b)
-#define eu_stubbed_printf_3(msg, a, b, c) stubbed_printf(msg, a, b, c)
+#define eu_stubbed_printf_0(msg) true_stubbed_printf(msg)
+#define eu_stubbed_printf_1(msg, a) true_stubbed_printf(msg, a)
+#define eu_stubbed_printf_2(msg, a, b) true_stubbed_printf(msg, a, b)
+#define eu_stubbed_printf_3(msg, a, b, c) true_stubbed_printf(msg, a, b, c)
 
 struct NotePool;
 
