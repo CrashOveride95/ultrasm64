@@ -122,19 +122,12 @@ void create_thread(OSThread *thread, OSId id, void (*entry)(void *), void *arg, 
     osCreateThread(thread, id, entry, arg, sp, pri);
 }
 
-#ifdef VERSION_SH
-extern void func_sh_802f69cc(void);
-#endif
-
 void handle_nmi_request(void) {
     gResetTimer = 1;
     D_8032C648 = 0;
     stop_sounds_in_continuous_banks();
     sound_banks_disable(SEQ_PLAYER_SFX, SOUND_BANKS_BACKGROUND);
     fadeout_music(90);
-#ifdef VERSION_SH
-    func_sh_802f69cc();
-#endif
 }
 
 void receive_new_tasks(void) {
