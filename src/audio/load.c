@@ -754,7 +754,9 @@ void audio_init() {
 #else
     D_EU_802298D0 = 16.713f;
     gRefreshRate = 60;
-    func_sh_802f6a9c();
+    port_eu_init();
+    if (k) {
+    }
 #endif
 
 #ifdef TARGET_N64
