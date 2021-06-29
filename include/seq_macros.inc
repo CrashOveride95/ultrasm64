@@ -155,8 +155,6 @@
     .byte 0xff
 .endm
 
-.ifdef VERSION_SH
-
 .macro seq_unreservenotes
     .byte 0xf0
 .endm
@@ -165,34 +163,6 @@
     .byte 0xf1
     .byte \a
 .endm
-
-.else
-
-.ifdef VERSION_EU
-
-.macro seq_unreservenotes
-    .byte 0xf0
-.endm
-
-.macro seq_reservenotes a
-    .byte 0xf1
-    .byte \a
-.endm
-
-.else
-
-.macro seq_unreservenotes
-    .byte 0xf1
-.endm
-
-.macro seq_reservenotes a
-    .byte 0xf2
-    .byte \a
-.endm
-
-.endif
-
-.endif
 
 # chan commands
 
@@ -462,41 +432,6 @@
     var_long \a
 .endm
 
-.ifdef VERSION_SH
-
-.macro chan_setnotepriority a
-    .byte 0xe9
-    .byte \a
-.endm
-
-.macro chan_unreservenotes
-    .byte 0xf0
-.endm
-
-.macro chan_reservenotes a
-    .byte 0xf1
-    .byte \a
-.endm
-
-.macro chan_testlayerfinished a
-    .byte 0x80 + \a
-.endm
-
-.macro chan_setlayer a, b
-    .byte 0x88 + \a
-    .byte (\b - sequence_start) >> 8, (\b - sequence_start) & 0xff
-.endm
-
-.macro chan_ioreadval a
-    .byte 0x60 + \a
-.endm
-
-.macro chan_freelayer a
-    .byte 0x90 + \a
-.endm
-
-.else
-
 .macro chan_testlayerfinished a
     .byte 0x0 + \a
 .endm
@@ -514,8 +449,6 @@
     .byte 0xa0 + \a
 .endm
 
-.ifdef VERSION_EU
-
 .macro chan_setnotepriority a
     .byte 0xe9
     .byte \a
@@ -529,25 +462,6 @@
     .byte 0xf1
     .byte \a
 .endm
-
-.else
-
-.macro chan_setnotepriority a
-    .byte 0x60 + \a
-.endm
-
-.macro chan_unreservenotes
-    .byte 0xf1
-.endm
-
-.macro chan_reservenotes a
-    .byte 0xf2
-    .byte \a
-.endm
-
-.endif
-
-.endif
 
 # layer commands
 
