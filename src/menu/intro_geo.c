@@ -28,7 +28,7 @@ struct GraphNodeMore {
 };
 
 // intro geo bss
-#ifdef VERSION_SH
+#if FBUFEGG
 static u16 *sFrameBuffers[3];
 #endif
 static s32 sGameOverFrameCounter;
@@ -271,7 +271,7 @@ Gfx *geo_intro_gameover_backdrop(s32 state, struct GraphNode *node, UNUSED void 
     return dl;
 }
 
-#ifdef VERSION_SH
+#if FBUFEGG
 extern Gfx title_screen_bg_dl_0A0065E8[];
 extern Gfx title_screen_bg_dl_0A006618[];
 extern Gfx title_screen_bg_dl_0A007548[];
@@ -430,37 +430,6 @@ Gfx *geo_intro_face_easter_egg(s32 state, struct GraphNode *node, UNUSED void *c
         }
     }
 
-    return dl;
-}
-
-Gfx *geo_intro_rumble_pak_graphic(s32 state, struct GraphNode *node, UNUSED void *context) {
-    struct GraphNodeGenerated *genNode = (struct GraphNodeGenerated *)node;
-    Gfx *dlIter;
-    Gfx *dl;
-    s32 introContext;
-    s8 backgroundTileSix;
-
-    if (state != 1) {
-        dl = NULL;
-    } else if (state == 1) {
-        genNode->fnNode.node.flags = (genNode->fnNode.node.flags & 0xFF) | (LAYER_OPAQUE << 8);
-        introContext = genNode->parameter & 0xFF;
-        if (introContext == 0) {
-            backgroundTileSix = introBackgroundIndexTable[6];
-        } else if (introContext == 1) {
-            backgroundTileSix = gameOverBackgroundTable[6];
-        }
-        if (backgroundTileSix == INTRO_BACKGROUND_SUPER_MARIO) {
-            dl = alloc_display_list(3 * sizeof(*dl));
-            if (dl != NULL) {
-                dlIter = dl;
-                gSPDisplayList(dlIter++, &title_screen_bg_dl_0A007548);
-                gSPEndDisplayList(dlIter);
-            }
-        } else {
-            dl = NULL;
-        }
-    }
     return dl;
 }
 

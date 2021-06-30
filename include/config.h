@@ -29,6 +29,9 @@
 // Clear RAM on boot    
 #define CLEARRAM 1
 
+// Intro Easter Egg
+#define FBUFEGG 1
+
 // English Dialect to use
 #define ENGVER AMERICAN // AMERICAN/BRITISH
 
@@ -38,7 +41,7 @@
 
 // Border Height Define for NTSC Versions
 #ifdef TARGET_N64
-#ifndef VERSION_EU
+#ifndef PAL
 #define BORDER_HEIGHT 8
 #else
 #define BORDER_HEIGHT 1

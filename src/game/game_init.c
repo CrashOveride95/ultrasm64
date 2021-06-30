@@ -99,10 +99,7 @@ void my_rdp_init(void) {
     gDPSetRenderMode(gDisplayListHead++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
     gDPSetColorDither(gDisplayListHead++, G_CD_MAGICSQ);
     gDPSetCycleType(gDisplayListHead++, G_CYC_FILL);
-
-#ifdef VERSION_SH
-    gDPSetAlphaDither(gDisplayListHead++, G_AD_PATTERN);
-#endif
+    
     gDPPipeSync(gDisplayListHead++);
 }
 

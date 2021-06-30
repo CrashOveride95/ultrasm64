@@ -1,10 +1,6 @@
 // 0x0C000104
 const GeoLayout penguin_geo[] = {
-#if defined(VERSION_EU) || defined(VERSION_SH)
        GEO_SHADOW(SHADOW_CIRCLE_9_VERTS, 0x96, 60),
-#else
-       GEO_SHADOW(SHADOW_CIRCLE_4_VERTS, 0x96, 100),
-#endif
        GEO_OPEN_NODE(),
           GEO_SCALE(0x00, 16384),
           GEO_OPEN_NODE(),

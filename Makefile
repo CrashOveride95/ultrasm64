@@ -82,22 +82,18 @@ $(eval $(call validate-option,GZIPVER,std libdef))
 #   us - builds the 1996 North American version
 #   eu - builds the 1997 PAL version
 #   sh - builds the 1997 Japanese Shindou version, with rumble pak support
-VERSION ?= us
+VERSION ?= eu
 $(eval $(call validate-option,VERSION,jp us eu sh))
 
 ifeq      ($(VERSION),jp)
   DEFINES   += VERSION_JP=1 NTSC=1
-  GRUCODE   ?= f3dzex
-else ifeq ($(VERSION),us)
-  DEFINES   += VERSION_US=1 NTSC=1
-  GRUCODE   ?= f3dzex
+#else ifeq ($(VERSION),us)
+#  DEFINES   += VERSION_US=1 NTSC=1
 else ifeq ($(VERSION),eu)
-  DEFINES   += VERSION_EU=1 PAL=1
-  GRUCODE   ?= f3dzex
-else ifeq ($(VERSION),sh)
-  DEFINES   += VERSION_SH=1 NTSC=1
-  GRUCODE   ?= f3dzex
+  DEFINES   += VERSION_EU=1 NTSC=1
 endif
+
+GRUCODE   := f3dzex
 
 TARGET := sm64.$(VERSION)
 

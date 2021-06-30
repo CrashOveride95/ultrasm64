@@ -1100,7 +1100,7 @@ u32 interact_tornado(struct MarioState *m, UNUSED u32 interactType, struct Objec
         marioObj->oMarioTornadoPosY = m->pos[1] - o->oPosY;
 
         play_sound(SOUND_MARIO_WAAAOOOW, m->marioObj->header.gfx.cameraToObject);
-#ifdef VERSION_SH
+#if ENABLE_RUMBLE
         queue_rumble_data(30, 60);
 #endif
         return set_mario_action(m, ACT_TORNADO_TWIRLING, m->action == ACT_TWIRLING);
@@ -1510,20 +1510,10 @@ u32 interact_pole(struct MarioState *m, UNUSED u32 interactType, struct Object *
     s32 actionId = m->action & ACT_ID_MASK;
     if (actionId >= 0x080 && actionId < 0x0A0) {
         if (!(m->prevAction & ACT_FLAG_ON_POLE) || m->usedObj != o) {
-#ifdef VERSION_SH
-            f32 velConv = m->forwardVel; // conserve the velocity.
-            struct Object *marioObj = m->marioObj;
-            u32 lowSpeed;
-#else
             u32 lowSpeed = (m->forwardVel <= 10.0f);
             struct Object *marioObj = m->marioObj;
-#endif
 
             mario_stop_riding_and_holding(m);
-
-#ifdef VERSION_SH
-            lowSpeed = (velConv <= 10.0f);
-#endif
 
             m->interactObj = o;
             m->usedObj = o;
