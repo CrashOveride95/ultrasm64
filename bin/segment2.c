@@ -2082,9 +2082,14 @@ const Texture *const main_hud_camera_lut[] = {
 // If you change the language here, the following Makefile rule also needs to
 // change, to generate the right version of define_text.inc.c:
 // $(BUILD_DIR)/bin/segment2.o: $(BUILD_DIR)/text/$(VERSION)/define_text.inc.c
+#if 0
 #if defined(VERSION_JP) || defined(VERSION_SH)
 #include "text/jp/define_text.inc.c"
 #elif defined(VERSION_US)
+#include "text/us/define_text.inc.c"
+#endif
+#endif
+#ifdef VERSION_US
 #include "text/us/define_text.inc.c"
 #endif
 

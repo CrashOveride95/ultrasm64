@@ -25,7 +25,7 @@
 #define TEXT_PAUSE _("PAUSE") // Pause text, Castle Courses
 #define TEXT_HUD_CONGRATULATIONS _("CONGRATULATIONS") // Course Complete Text, Bowser Courses
 
-#if defined(VERSION_JP) || defined(VERSION_SH)
+#if defined(VERSION_JP) || defined(VERSION_SH) // JAPANESE
 
 /**
  * File Select Text
@@ -124,7 +124,7 @@
 
 #endif
 
-#if defined(VERSION_US) || defined(VERSION_EU)
+#if defined(VERSION_US) || defined(VERSION_EU) // MULTILANG
 
 /**
  * File Select Text

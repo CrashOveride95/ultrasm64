@@ -97,6 +97,10 @@ DECLARE_SEGMENT(translation_en_yay0)
 DECLARE_SEGMENT(translation_fr_yay0)
 #endif
 
+#ifdef VERSION_JP
+DECLARE_SEGMENT(translation_jp_yay0)
+#endif
+
 //added for compatibility
 DECLARE_SEGMENT(segment2_mio0)
 
@@ -133,6 +137,11 @@ DECLARE_SEGMENT(translation_de_mio0)
 DECLARE_SEGMENT(translation_en_mio0)
 DECLARE_SEGMENT(translation_fr_mio0)
 #endif
+
+#ifdef VERSION_JP
+DECLARE_SEGMENT(translation_jp_mio0)
+#endif
+
 
 #endif
 

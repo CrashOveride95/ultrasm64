@@ -514,9 +514,10 @@ ifeq ($(VERSION),eu)
   $(BUILD_DIR)/levels/menu/leveldata.o: $(BUILD_DIR)/text/de/define_courses.inc.c
   $(BUILD_DIR)/levels/menu/leveldata.o: $(BUILD_DIR)/text/fr/define_courses.inc.c
 else
-  ifeq ($(VERSION),sh)
+  ifeq ($(VERSION),jp)
     TEXT_DIRS := text/jp
-    $(BUILD_DIR)/bin/segment2.o: $(BUILD_DIR)/text/jp/define_text.inc.c
+#    $(BUILD_DIR)/bin/segment2.o: $(BUILD_DIR)/text/jp/define_text.inc.c
+    $(BUILD_DIR)/bin/jp/translation_jp.o: $(BUILD_DIR)/text/jp/define_text.inc.c
   else
     TEXT_DIRS := text/$(VERSION)
     # non-EU encoded text inserted into segment 0x02

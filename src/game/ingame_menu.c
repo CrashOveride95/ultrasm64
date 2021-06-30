@@ -2211,7 +2211,7 @@ void render_pause_my_score_coins(void) {
     u8 courseIndex;
     u8 starFlags;
 
-#ifndef VERSION_EU
+#ifdef VERSION_US
     courseNameTbl = segmented_to_virtual(seg2_course_name_table);
     actNameTbl = segmented_to_virtual(seg2_act_name_table);
 #endif
@@ -2236,6 +2236,10 @@ void render_pause_my_score_coins(void) {
     }
 #endif
 
+#ifdef VERSION_JP
+    courseNameTbl = segmented_to_virtual(seg2_course_name_table);
+    actNameTbl = segmented_to_virtual(seg2_act_name_table);
+#endif
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, gDialogTextAlpha);
 

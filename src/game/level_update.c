@@ -25,6 +25,10 @@
 #include "eu_translation.h"
 #include "segment_symbols.h"
 #endif
+#ifdef VERSION_JP
+#include "memory.h"
+#include "segment_symbols.h"
+#endif
 #include "level_table.h"
 #include "course_table.h"
 #include "rumble_init.h"
@@ -1266,6 +1270,11 @@ s32 lvl_init_from_save_file(UNUSED s16 arg0, s32 levelNum) {
             break;
     }
 #endif
+#ifdef VERSION_JP
+    load_segment_decompress(0x19, _translation_jp_yay0SegmentRomStart,
+                            _translation_jp_yay0SegmentRomEnd);
+#endif
+
     sWarpDest.type = WARP_TYPE_NOT_WARPING;
     sDelayedWarpOp = WARP_OP_NONE;
     gNeverEnteredCastle = !save_file_exists(gCurrSaveFileNum - 1);

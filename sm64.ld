@@ -42,6 +42,16 @@ OUTPUT_ARCH (mips)
    _##name##_mio0SegmentRomStart = _##name##_yay0SegmentRomStart; \
    _##name##_mio0SegmentRomEnd = _##name##_yay0SegmentRomEnd;
 
+#define YAY0_JP_SEG(name, segAddr) \
+   BEGIN_SEG(name##_yay0, segAddr) \
+   { \
+      KEEP(BUILD_DIR/bin/jp/name.szp.o(.data)); \
+      . = ALIGN(0x10); \
+   } \
+   END_SEG(name##_yay0) \
+   _##name##_mio0SegmentRomStart = _##name##_yay0SegmentRomStart; \
+   _##name##_mio0SegmentRomEnd = _##name##_yay0SegmentRomEnd;
+
 #define STANDARD_LEVEL(name) \
    BEGIN_SEG(name##_segment_7, 0x07000000) \
    { \
@@ -251,6 +261,9 @@ SECTIONS
    YAY0_EU_SEG(translation_en, 0x19000000)
    YAY0_EU_SEG(translation_fr, 0x19000000)
    YAY0_EU_SEG(translation_de, 0x19000000)
+#endif
+#ifdef VERSION_JP
+   YAY0_JP_SEG(translation_jp, 0x19000000)
 #endif
 
    /* mario actor group */
