@@ -1,0 +1,3 @@
+[submodule "tools/Flips"]
+	path = tools/Flips
+	url = git@github.com:Alcaro/Flips.git

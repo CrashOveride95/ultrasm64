@@ -69,9 +69,13 @@ all-except-recomp: $(LIBAUDIOFILE) $(BUILD_PROGRAMS)
 
 all: all-except-recomp
 
+flips:
+	@$(MAKE) -C Flips
+
 clean:
 	$(RM) $(ALL_PROGRAMS)
 	$(MAKE) -C audiofile clean
+	$(MAKE) -C Flips clean
 
 define COMPILE
 $(1): $($1_SOURCES)
@@ -83,4 +87,4 @@ $(foreach p,$(BUILD_PROGRAMS),$(eval $(call COMPILE,$(p))))
 $(LIBAUDIOFILE):
 	@$(MAKE) -C audiofile
 
-.PHONY: all all-except-recomp clean default
+.PHONY: all all-except-recomp clean flips default
