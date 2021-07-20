@@ -9,6 +9,7 @@ CFLAGS       := -I. -O2 -s
 LDFLAGS      := -lm
 ALL_PROGRAMS := armips filesizer rncpack n64graphics n64graphics_ci mio0 slienc n64cksum textconv patch_elf_32bit aifc_decode aiff_extract_codebook vadpcm_enc tabledesign extract_data_for_mio skyconv
 LIBAUDIOFILE := audiofile/libaudiofile.a
+FLIPS        := Flips/flips
 
 # Only build armips from tools if it is not found on the system
 ifeq ($(call find-command,armips),)
@@ -65,12 +66,9 @@ ifeq ($(HOST_ENV),MinGW)
   armips_LDFLAGS += -municode
 endif
 
-all-except-recomp: $(LIBAUDIOFILE) $(BUILD_PROGRAMS)
+all-except-recomp: $(LIBAUDIOFILE) $(FLIPS) $(BUILD_PROGRAMS)
 
 all: all-except-recomp
-
-flips:
-	@$(MAKE) -C Flips
 
 clean:
 	$(RM) $(ALL_PROGRAMS)
@@ -87,4 +85,7 @@ $(foreach p,$(BUILD_PROGRAMS),$(eval $(call COMPILE,$(p))))
 $(LIBAUDIOFILE):
 	@$(MAKE) -C audiofile
 
-.PHONY: all all-except-recomp clean flips default
+$(FLIPS):
+	@$(MAKE) -C Flips
+
+.PHONY: all all-except-recomp clean default
