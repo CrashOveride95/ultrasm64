@@ -496,9 +496,9 @@ load: $(ROM)
 
 libultra: $(BUILD_DIR)/libultra.a
 
-patch:
-	@$(MAKE) -C $(TOOLS_DIR) flips
+patch: $(ROM)
 	$(FLIPS) --create --bps ./baserom.$(VERSION).z64 $(ROM) $(BUILD_DIR)/$(TARGET_STRING).bps
+	@$(SHA1SUM) $(ROM)
 
 # Extra object file dependencies
 $(BUILD_DIR)/asm/boot.o:              $(IPL3_RAW_FILES)
