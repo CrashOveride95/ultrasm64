@@ -6,7 +6,6 @@
 #include "sm64.h"
 #include "audio/external.h"
 #include "game/game_init.h"
-#include "game/memory.h"
 #include "game/sound_init.h"
 #include "game/profiler.h"
 #include "buffers/buffers.h"
@@ -65,6 +64,39 @@ s8 gDebugLevelSelect = FALSE;
 
 s8 gShowProfiler = FALSE;
 s8 gShowDebugText = FALSE;
+
+#define ALIGN16(val) (((val) + 0xF) & ~0xF)
+
+static void dma_read(u8 *dest, u8 *srcStart, u8 *srcEnd) {
+    u32 size = ALIGN16(srcEnd - srcStart);
+
+    osInvalDCache(dest, size);
+    while (size != 0) {
+        u32 copySize = (size >= 0x1000) ? 0x1000 : size;
+
+        osPiStartDma(&gDmaIoMesg, OS_MESG_PRI_NORMAL, OS_READ, (uintptr_t) srcStart, dest, copySize,
+                     &gDmaMesgQueue);
+        osRecvMesg(&gDmaMesgQueue, &gMainReceivedMesg, OS_MESG_BLOCK);
+
+        dest += copySize;
+        srcStart += copySize;
+        size -= copySize;
+    }
+}
+
+#ifndef NO_SEGMENTED_MEMORY
+static void load_engine_code_segment(void) {
+    void *startAddr = (void *) _engineSegmentStart;
+    u32 totalSize = _engineSegmentEnd - _engineSegmentStart;
+    UNUSED u32 alignedSize = ALIGN16(_engineSegmentRomEnd - _engineSegmentRomStart);
+
+    bzero(startAddr, totalSize);
+    osWritebackDCacheAll();
+    dma_read(startAddr, _engineSegmentRomStart, _engineSegmentRomEnd);
+    osInvalICache(startAddr, totalSize);
+    osInvalDCache(startAddr, totalSize);
+}
+#endif
 
 // unused
 void handle_debug_key_sequences(void) {
@@ -313,8 +345,10 @@ extern void crash_screen_init(void);
 
 void thread3_main(UNUSED void *arg) {
     setup_mesg_queues();
-    alloc_pool();
+#ifndef NO_SEGMENTED_MEMORY
     load_engine_code_segment();
+#endif
+    alloc_pool();
 #ifndef UNF
     crash_screen_init();
 #endif
