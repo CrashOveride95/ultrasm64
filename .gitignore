@@ -84,3 +84,5 @@ build/*
 
 !/lib/PR/hvqm/*.o
 
+!.vscode/launch.json
+!.vscode/tasks.json

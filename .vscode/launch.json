@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "by-gdb",
+            "request": "launch",
+            "name": "Debug with cen64",
+            "program": "${workspaceFolder}/build/us_n64/sm64.elf",
+            "cwd": "${workspaceRoot}",
+            "debuggerPath": "gdb-multiarch",
+            "remote": {
+                "enabled": true,
+                "address": ":8080",
+                "mode": "remote",
+                "execfile": "${workspaceFolder}/build/us_n64/sm64.elf"
+            },
+            "commandsBeforeExec": [
+                "set arch mips:4300",
+            ],
+            "preLaunchTask": "Run cen64 delay",
+        },
+    ]
+}

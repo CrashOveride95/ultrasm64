@@ -1,0 +1,44 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Make Rom",
+            "type": "shell",
+            "command": "make GDB=1 -j12",
+            "group": "build"
+        },
+        {
+            "label": "Run cen64",
+            "type": "shell",
+            "command": "~/Emus/cen64/cen64 -debug localhost:8080 -eep4k ~/Emus/cen64/save.bin ~/Emus/cen64/pifdata.bin ${workspaceFolder}/build/us_n64/sm64.z64",
+            "group": "build",
+            "dependsOn": "Make Rom",
+            "isBackground": true, 
+
+            "problemMatcher": [
+                {
+                "pattern": [
+                    {
+                    "regexp": ".",
+                    "file": 1,
+                    "location": 2,
+                    "message": 3
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": ".",
+                    "endsPattern": ".",
+                }
+                }
+            ]
+        },
+        {
+            "label": "Run cen64 delay",
+            "type": "shell",
+            "command": "sleep 0.5",
+            "group": "build",
+            "dependsOn": "Run cen64",
+        },
+    ]
+}

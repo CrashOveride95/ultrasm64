@@ -210,15 +210,18 @@ SECTIONS
       BUILD_DIR/src/game*.o(.text);
       BUILD_DIR/src/engine*.o(.text);
       BUILD_DIR/src/usb*.o(.text);
+      BUILD_DIR/src/gdb*.o(.text);
       /* data */
       BUILD_DIR/src/game*.o(.data*);
       BUILD_DIR/src/engine*.o(.data*);
       BUILD_DIR/src/engine*.o(.sdata*);
       BUILD_DIR/src/usb*.o(.data*);
+      BUILD_DIR/src/gdb*.o(.data*);
       /* rodata */
       BUILD_DIR/src/game*.o(.rodata*);
       BUILD_DIR/src/engine*.o(.rodata*);
       BUILD_DIR/src/usb*.o(.rodata*);
+      BUILD_DIR/src/gdb*.o(.rodata*);
       . = ALIGN(0x10);
    }
    END_SEG(engine)
@@ -227,6 +230,7 @@ SECTIONS
       BUILD_DIR/src/game*.o(.*bss*);
       BUILD_DIR/src/engine*.o(.bss*);
       BUILD_DIR/src/usb*.o(.*bss*);
+      BUILD_DIR/src/gdb*.o(.*bss*);
       . = ALIGN(0x40);
    }
    END_NOLOAD(engine)
@@ -486,6 +490,7 @@ SECTIONS
    /* Discard everything not specifically mentioned above. */
    /DISCARD/ :
    {
-      *(*);
+      *(.eh_frame)
+      *(.MIPS.abiflags)
    }
 }

@@ -152,6 +152,16 @@ ifeq ($(UNF),1)
   USE_DEBUG := 1
 endif
 
+# GDB - whether to use GDB debug code
+#   1 - includes code in ROM
+#   0 - does not 
+GDB ?= 0
+$(eval $(call validate-option,GDB,0 1))
+ifeq ($(GDB),1)
+  DEFINES += GDB=1
+  SRC_DIRS += src/gdb
+endif
+
 # ISVPRINT - whether to fake IS-Viewer presence,
 # allowing for usage of CEN64 (and possibly Project64) to print messages to terminal.
 #   1 - includes code in ROM
@@ -162,6 +172,8 @@ ifeq ($(ISVPRINT),1)
   DEFINES += ISVPRINT=1
   USE_DEBUG := 1
 endif
+
+include checks.mk
 
 ifeq ($(USE_DEBUG),1)
   ULTRALIB := ultra_d

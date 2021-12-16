@@ -18,6 +18,9 @@
 #include "usb/usb.h"
 #include "usb/debug.h"
 #endif
+#ifdef GDB
+#include "gdb/debugger.h"
+#endif
 
 // Message IDs
 #define MESG_SP_COMPLETE 100
@@ -321,6 +324,14 @@ void thread3_main(UNUSED void *arg) {
 
 #ifdef UNF
     debug_initialize();
+#endif
+#ifdef GDB
+  OSPiHandle          *handler;
+  handler = osCartRomInit();
+
+  OSThread* threadPtr = &gGameLoopThread;
+
+  gdbInitDebugger(handler, &gDmaMesgQueue, &threadPtr, 1);
 #endif
 
 #ifdef DEBUG
