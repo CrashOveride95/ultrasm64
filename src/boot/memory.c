@@ -398,7 +398,6 @@ void *load_segment_decompress_heap(u32 segment, u8 *srcStart, u8 *srcEnd) {
 #endif
     if (compressed != NULL) {
         dma_read(compressed, srcStart, srcEnd);
-#endif
 #ifdef GZIP
         expand_gzip(compressed, gDecompressionHeap, compSize, (u32)size);
 #elif RNC1
