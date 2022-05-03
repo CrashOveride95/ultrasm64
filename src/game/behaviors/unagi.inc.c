@@ -161,6 +161,7 @@ void bhv_unagi_loop(void) {
             break;
         case 2:
             unagi_act_2();
+            FALL_THROUGH;
         case 3:
             unagi_act_3();
             break;

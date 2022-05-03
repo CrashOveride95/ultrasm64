@@ -2706,7 +2706,7 @@ void print_save_file_scores(s8 fileIndex) {
 #endif
 #else
     unsigned char textFileLetter[] = { TEXT_ZERO };
-    void **levelNameTable;
+    void **levelNameTable = NULL;
 
     switch (sLanguageMode) {
         case LANGUAGE_ENGLISH:

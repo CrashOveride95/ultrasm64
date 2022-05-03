@@ -53,7 +53,7 @@ int main(int argc, const char **argv, const char **envp)
 	fseek(fp, 0, SEEK_SET);
 	
 	bz = malloc(insize);
-	fread(bz, 1, insize, fp);
+	(void) !fread(bz, 1, insize, fp);
 	fclose(fp);
 	
 	for (int i = 0; src[i]; i++)

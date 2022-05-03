@@ -35,8 +35,6 @@
     aSetBuffer(pkt, 0, 0, c + DMEM_ADDR_WET_RIGHT_CH, d);                                              \
     aSaveBuffer(pkt, VIRTUAL_TO_PHYSICAL2(gSynthesisReverb.ringBuffer.right + (off)));
 
-#define ALIGN(val, amnt) (((val) + (1 << amnt) - 1) & ~((1 << amnt) - 1))
-
 struct VolumeChange {
     u16 sourceLeft;
     u16 sourceRight;
@@ -271,7 +269,7 @@ u64 *synthesis_execute(u64 *cmdBuf, s32 *writtenCmds, s16 *aiBuf, s32 bufLen) {
     u32 *aiBufPtr;
     u64 *cmd = cmdBuf;
     s32 chunkLen;
-    s32 nextVolRampTable;
+    s32 nextVolRampTable = 0;
 
     for (i = gAudioBufferParameters.updatesPerFrame; i > 0; i--) {
         process_sequences(i - 1);
@@ -606,11 +604,11 @@ u64 *synthesis_process_notes(s16 *aiBuf, s32 bufLen, u64 *cmd) {
     UNUSED u8 pad7[0x0c];                    // sp100
     UNUSED s32 tempBufLen;
 #ifdef VERSION_EU
-    s32 sp130;  //sp128, sp104
+    s32 sp130 = 0;  //sp128, sp104
     UNUSED u32 pad9;
 #else
     UNUSED u32 pad9;
-    s32 sp130;  //sp128, sp104
+    s32 sp130 = 0; //sp128, sp104
 #endif
     s32 nAdpcmSamplesProcessed; // signed required for US
     s32 t0;
@@ -663,7 +661,7 @@ u64 *synthesis_process_notes(s16 *aiBuf, s32 bufLen, u64 *cmd) {
     s32 s5Aligned;
 #endif
     s32 resampledTempLen;                    // spD8, spAC
-    u16 noteSamplesDmemAddrBeforeResampling; // spD6, spAA
+    u16 noteSamplesDmemAddrBeforeResampling = 0; // spD6, spAA
 
 
 #ifndef VERSION_EU

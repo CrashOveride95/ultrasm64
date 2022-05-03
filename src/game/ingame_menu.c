@@ -1676,12 +1676,12 @@ s8 gDialogCourseActNum = 1;
 
 void render_dialog_entries(void) {
 #ifdef VERSION_EU
-    s8 lowerBound;
+    s8 lowerBound = 0;
 #endif
-    void **dialogTable;
+    void **dialogTable = NULL;
     struct DialogEntry *dialog;
 #if defined(VERSION_US) || defined(VERSION_SH)
-    s8 lowerBound;
+    s8 lowerBound = 0;
 #endif
 
 #ifdef VERSION_EU
@@ -2005,7 +2005,7 @@ void do_cutscene_handler(void) {
 
 // "Dear Mario" message handler
 void print_peach_letter_message(void) {
-    void **dialogTable;
+    void **dialogTable = NULL;
     struct DialogEntry *dialog;
     u8 *str;
 
@@ -2216,9 +2216,9 @@ void render_pause_my_score_coins(void) {
     u8 textUnfilledStar[] = { TEXT_UNFILLED_STAR };
 
     u8 strCourseNum[4];
-    void **courseNameTbl;
+    void **courseNameTbl = NULL;
     u8 *courseName;
-    void **actNameTbl;
+    void **actNameTbl = NULL;
     u8 *actName;
     u8 courseIndex;
     u8 starFlags;
@@ -2500,7 +2500,7 @@ void render_pause_castle_course_stars(s16 x, s16 y, s16 fileIndex, s16 courseInd
 
 void render_pause_castle_main_strings(s16 x, s16 y) {
 #ifdef VERSION_EU
-    void **courseNameTbl;
+    void **courseNameTbl = NULL;
 #else
     void **courseNameTbl = segmented_to_virtual(seg2_course_name_table);
 #endif
@@ -2817,8 +2817,8 @@ void render_course_complete_lvl_info_and_hud_str(void) {
     u8 textSymStar[] = { GLYPH_STAR, GLYPH_SPACE };
 #endif
 
-    void **actNameTbl;
-    void **courseNameTbl;
+    void **actNameTbl = NULL;
+    void **courseNameTbl = NULL;
     u8 *name;
 
     u8 strCourseNum[4];

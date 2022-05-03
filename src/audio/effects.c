@@ -190,6 +190,7 @@ s8 get_vibrato_pitch_change(struct VibratoState *vib) {
     switch (index & 0x30) {
         case 0x10:
             index = 31 - index;
+            FALL_THROUGH;
 
         case 0x00:
             return vib->curve[index];
@@ -386,6 +387,7 @@ s32 adsr_update(struct AdsrState *adsr) {
                 break;
             }
             // fallthrough
+            FALL_THROUGH;
         }
 
         case ADSR_STATE_START_LOOP:
@@ -395,6 +397,7 @@ s32 adsr_update(struct AdsrState *adsr) {
 #endif
             adsr->state = ADSR_STATE_LOOP;
             // fallthrough
+            FALL_THROUGH;
 
 #ifdef VERSION_SH
             restart:

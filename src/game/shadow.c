@@ -201,7 +201,7 @@ f32 get_water_level_below_shadow(struct Shadow *s) {
  *                          be dimmed based on its distance to the floor
  */
 s8 init_shadow(struct Shadow *s, f32 xPos, f32 yPos, f32 zPos, s16 shadowScale, u8 overwriteSolidity) {
-    f32 waterLevel;
+    f32 waterLevel = FLOOR_LOWER_LIMIT_SHADOW;
     f32 floorSteepness;
     struct FloorGeometry *floorGeometry;
 
@@ -292,7 +292,8 @@ void make_shadow_vertex_at_xyz(Vtx *vertices, s8 index, f32 relX, f32 relY, f32 
     s16 vtxX = round_float(relX);
     s16 vtxY = round_float(relY);
     s16 vtxZ = round_float(relZ);
-    s16 textureX, textureY;
+    s16 textureX = 0;
+    s16 textureY = 0;
 
     switch (shadowVertexType) {
         case SHADOW_WITH_9_VERTS:
@@ -522,7 +523,7 @@ void linearly_interpolate_solidity_negative(struct Shadow *s, u8 initialSolidity
  * Change a shadow's solidity based on the player's current animation frame.
  */
 s8 correct_shadow_solidity_for_animations(s32 isLuigi, u8 initialSolidity, struct Shadow *shadow) {
-    struct Object *player;
+    struct Object *player = NULL;
     s8 ret;
     s16 animFrame;
 
@@ -594,7 +595,7 @@ Gfx *create_shadow_player(f32 xPos, f32 yPos, f32 zPos, s16 shadowScale, u8 soli
     Vtx *verts;
     Gfx *displayList;
     struct Shadow shadow;
-    s8 ret;
+    s8 ret = 0;
     s32 i;
 
     // Update global variables about whether Mario is on a flying carpet.

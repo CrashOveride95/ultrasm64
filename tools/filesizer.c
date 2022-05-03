@@ -66,7 +66,7 @@ int main(int argc, char *argv[argc + 1])
 		return EXIT_FAILURE;
 	}
 
-	fread(data, insize, 1, fin);
+	(void) !fread(data, insize, 1, fin);
 
 	size_stored = data + outsize - 4;
 	*size_stored = __bswap_32(atoi(argv[3]));

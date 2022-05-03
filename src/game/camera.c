@@ -1606,6 +1606,7 @@ s32 update_boss_fight_camera(struct Camera *c, Vec3f focus, Vec3f pos) {
             case AREA_BOB:
                 pos[1] += 125.f;
                 //! fall through, makes the BoB boss fight camera move up twice as high as it should
+                FALL_THROUGH;
             case AREA_WF:
                 pos[1] += 125.f;
         }
@@ -5102,7 +5103,7 @@ s32 determine_dance_cutscene(UNUSED struct Camera *c) {
  * @return `pullResult` or `pushResult` depending on Mario's door action
  */
 u8 open_door_cutscene(u8 pullResult, u8 pushResult) {
-    s16 result;
+    s16 result = 0;
 
     if (sMarioCamState->action == ACT_PULLING_DOOR) {
         result = pullResult;
