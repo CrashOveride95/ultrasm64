@@ -1688,13 +1688,15 @@ void func_sh_802f23ec(void) {
     struct Drum *drum;
     struct Instrument *inst;
     UNUSED s32 pad;
-    struct UnkEntry *entry = NULL; //! @bug: not initialized but nevertheless used
+    struct UnkEntry *entry; //! @bug: not initialized but nevertheless used
+
+    return; // This function is extremely unstable but doesn't actually appear to be very important apparently.
 
     seqCount = gAlCtlHeader->seqCount;
     for (idx = 0; idx < seqCount; idx++) {
         bankId1 = gCtlEntries[idx].bankId1;
         bankId2 = gCtlEntries[idx].bankId2;
-        if (entry == NULL || (bankId1 != 0xffu && entry->bankId == bankId1) || (bankId2 != 0xff && entry->bankId == bankId2) || entry->bankId == 0) {
+        if ((bankId1 != 0xffu && entry->bankId == bankId1) || (bankId2 != 0xff && entry->bankId == bankId2) || entry->bankId == 0) {
             if (get_bank_or_seq(1, 3, idx) != NULL) {
                 if (IS_BANK_LOAD_COMPLETE(idx) != FALSE) {
                     for (i = 0; i < gUnkPool2.numEntries; i++) {
