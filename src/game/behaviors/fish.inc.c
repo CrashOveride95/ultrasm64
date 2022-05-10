@@ -10,10 +10,10 @@
  */
 static void fish_spawner_act_spawn(void) {
     s32 i;
-    s32 schoolQuantity;
-    s16 model;
+    s32 schoolQuantity = 0;
+    s16 model = 0;
     f32 minDistToMario;
-    const struct Animation * const *fishAnimation;
+    const struct Animation * const *fishAnimation = NULL;
 
     switch (o->oBehParams2ndByte) {
         // Cases need to be on one line to match with and without optimizations.
