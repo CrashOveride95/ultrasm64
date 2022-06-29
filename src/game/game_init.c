@@ -392,6 +392,7 @@ void render_init(void) {
     if (IO_READ(DPC_PIPEBUSY_REG) == 0) {
         gIsConsole = 0;
         gBorderHeight = BORDER_HEIGHT_EMULATOR;
+        check_cache_emulation();
     } else {
         gIsConsole = 1;
         gBorderHeight = BORDER_HEIGHT_CONSOLE;
