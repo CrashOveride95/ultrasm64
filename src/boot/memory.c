@@ -17,6 +17,7 @@
 #if defined(RNC1) || defined(RNC2)
 #include <rnc.h>
 #endif
+#include <ff.h>
 
 
 // round up to the next multiple
@@ -376,6 +377,36 @@ void *load_segment_decompress(s32 segment, u8 *srcStart, u8 *srcEnd) {
     } else {
     }
 #endif
+    return dest;
+}
+
+void *load_filesys_segment_decompress(s32 segment, const char* path) {
+
+    void *dest = NULL;
+    FIL f;
+    u32 filebytesread;
+    
+    
+    osSyncPrintf("f_open returned %d \n",f_open(&f, path, FA_READ));
+
+    u32 compSize = f_size(&f);
+    u8 *compressed = main_pool_alloc(compSize, MEMORY_POOL_RIGHT);
+    // Decompressed size from header (This works for non-mio0 because they also have the size in same place)
+    u32 *size = (u32 *) (compressed + 4);
+    if (compressed != NULL) {
+        osSyncPrintf("f_read returned %d \n",f_read(&f, compressed, compSize, &filebytesread));
+        osSyncPrintf("f_close returned %d \n",f_close(&f));
+        dest = main_pool_alloc(*size, MEMORY_POOL_LEFT);
+        if (dest != NULL) {
+			osSyncPrintf("start decompress\n");
+            Propack_UnpackM1(compressed, dest);
+			osSyncPrintf("end decompress\n");
+            set_segment_base_addr(segment, dest);
+            main_pool_free(compressed);
+        } else {
+        }
+    } else {
+    }
     return dest;
 }
 

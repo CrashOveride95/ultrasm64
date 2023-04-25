@@ -131,6 +131,7 @@ SECTIONS
       KEEP(BUILD_DIR/asm/entry.o(.text));
 
       BUILD_DIR/src/boot*.o(.text);
+      BUILD_DIR/src/ff*.o(.text);
       BUILD_DIR/src/hvqm*.o(.text);
       BUILD_DIR/src/audio*.o(.text);
 #if defined(ISVPRINT) || defined(UNF)
@@ -142,6 +143,7 @@ SECTIONS
       */libgcc.a:*.o(.text);
       */librtc.a:*.o(.text);
       */libz.a:*.o(.text);
+      */libcart_ultra.a:*.o(.text);
       */libhvqm2.a:*.o(.text);
       lib/rspboot.o(.text);
 #include "rsptext.inc.ld"
@@ -151,6 +153,7 @@ SECTIONS
 
       /* data */
       BUILD_DIR/src/boot*.o(.data*);
+      BUILD_DIR/src/ff*.o(.data*);
       BUILD_DIR/src/audio*.o(.data*);
 #if defined(ISVPRINT) || defined(UNF)
       */libultra_d.a:*.o(.data*);
@@ -160,6 +163,7 @@ SECTIONS
       */libhvqm2.a:*.o(.data*);
       */librtc.a:*.o(.data*);
       */libz.a:*.o(.data*);
+      */libcart_ultra.a:*.o(.data*);
 #include "rspdata.inc.ld"
       BUILD_DIR/lib/aspMain.o(.data*);
       lib/PR/audio/n_aspMain.o(.data*);
@@ -167,6 +171,7 @@ SECTIONS
 
       /* rodata */
       BUILD_DIR/src/boot*.o(.rodata*);
+      BUILD_DIR/src/ff*.o(.rodata*);
       BUILD_DIR/src/audio*.o(.rodata*);
 #if defined(ISVPRINT) || defined(UNF)
       */libultra_d.a:*.o(.rodata*);
@@ -176,6 +181,7 @@ SECTIONS
       */libgcc.a:*.o(.rodata*);
       */librtc.a:*.o(.rodata*);
       */libz.a:*.o(.rodata*);
+      */libcart_ultra.a:*.o(.rodata*);
 
       lib/PR/hvqm/hvqm2sp1.o(.rodata*);
    }
@@ -183,6 +189,7 @@ SECTIONS
    BEGIN_NOLOAD(main)
    {
       BUILD_DIR/src/boot*.o(.*bss*);
+      BUILD_DIR/src/ff*.o(.*bss*);
       BUILD_DIR/src/hvqm*.o(.*bss*);
       BUILD_DIR/src/audio*.o(.*bss*);
 #if defined(ISVPRINT) || defined(UNF)
@@ -197,6 +204,7 @@ SECTIONS
       */libhvqm2.a:*.o(.bss*);
       */librtc.a:*.o(.bss*);
       */libz.a:*.o(.bss*);
+      */libcart_ultra.a:*.o(.bss*);
       . = ALIGN(0x8);
    }
    END_NOLOAD(main)
@@ -253,7 +261,7 @@ SECTIONS
    END_SEG(entry)
 
    /* load YAY0 and level data */
-   YAY0_SEG(segment2, 0x02000000)
+   //YAY0_SEG(segment2, 0x02000000)
 #ifdef VERSION_EU
    YAY0_EU_SEG(translation_en, 0x19000000)
    YAY0_EU_SEG(translation_fr, 0x19000000)

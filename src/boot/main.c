@@ -2,6 +2,8 @@
 #include <PR/os_system.h>
 #include <PR/os_vi.h>
 #include <stdio.h>
+#include <cart.h>
+#include <ff.h>
 
 #include "sm64.h"
 #include "audio/external.h"
@@ -46,6 +48,8 @@ OSMesg gPIMesgBuf[32];
 OSMesg gSIEventMesgBuf[1];
 OSMesg gIntrMesgBuf[16];
 OSMesg gUnknownMesgBuf[16];
+
+FATFS FatFs;
 
 OSViMode VI;
 
@@ -311,6 +315,12 @@ void handle_dp_complete(void) {
 }
 extern void crash_screen_init(void);
 
+FRESULT initFatFs()
+{
+	//Mount SD Card
+	return f_mount(&FatFs, "", 0);
+}
+
 void thread3_main(UNUSED void *arg) {
     setup_mesg_queues();
     alloc_pool();
@@ -322,6 +332,9 @@ void thread3_main(UNUSED void *arg) {
 #ifdef UNF
     debug_initialize();
 #endif
+
+    cart_init();
+    osSyncPrintf("initFatFs returned %d \n",initFatFs());
 
 #ifdef DEBUG
     osSyncPrintf("Super Mario 64\n");
