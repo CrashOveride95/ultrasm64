@@ -22,6 +22,7 @@
 #define CMD_W(a) (a)
 #endif
 #define CMD_PTR(a) ((uintptr_t)(a))
+#define CMD_STR(a) (a)
 
 #define CMD_HHHHHH(a, b, c, d, e, f) CMD_HH(a, b), CMD_HH(c, d), CMD_HH(e, f)
 

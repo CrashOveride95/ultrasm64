@@ -394,6 +394,7 @@ SECTIONS
    BEGIN_SEG(menu, 0x14000000)
    {
       KEEP(BUILD_DIR/levels/menu/script.o(.data));
+      KEEP(BUILD_DIR/levels/menu/script.o(.rodata*));
       KEEP(BUILD_DIR/levels/menu/geo.o(.data));
    }
    END_SEG(menu)

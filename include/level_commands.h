@@ -309,12 +309,6 @@
     CMD_BBH(0x39, 0x08, 0x0000), \
     CMD_PTR(objList)
 
-// unused
-#define CMD3A(unk2, unk4, unk6, unk8, unk10) \
-    CMD_BBH(0x3A, 0x0C, unk2), \
-    CMD_HH(unk6, unk8), \
-    CMD_HH(unk10, 0x0000)
-
 #define WHIRLPOOL(index, condition, posX, posY, posZ, strength) \
     CMD_BBBB(0x3B, 0x0C, index, condition), \
     CMD_HH(posX, posY), \
@@ -322,5 +316,9 @@
 
 #define GET_OR_SET(op, var) \
     CMD_BBBB(0x3C, 0x04, op, var)
+
+#define LOAD_YAY0_FS(seg, path) \
+    CMD_BBH(0x3D, 0x0C, seg), \
+    CMD_PTR(path)
 
 #endif // LEVEL_COMMANDS_H

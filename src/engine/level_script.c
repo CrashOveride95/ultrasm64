@@ -270,6 +270,7 @@ static void level_cmd_load_to_fixed_address(void) {
 }
 
 static void level_cmd_load_raw(void) {
+    osSyncPrintf("before load_segment\n");
     load_segment(CMD_GET(s16, 2), CMD_GET(void *, 4), CMD_GET(void *, 8),
             MEMORY_POOL_LEFT);
     sCurrentCmd = CMD_NEXT;
@@ -542,25 +543,6 @@ static void level_cmd_create_painting_warp_node(void) {
     sCurrentCmd = CMD_NEXT;
 }
 
-static void level_cmd_3A(void) {
-    struct UnusedArea28 *val4;
-
-    if (sCurrAreaIndex != -1) {
-        if ((val4 = gAreas[sCurrAreaIndex].unused) == NULL) {
-            val4 = gAreas[sCurrAreaIndex].unused =
-                alloc_only_pool_alloc(sLevelPool, sizeof(struct UnusedArea28));
-        }
-
-        val4->unk00 = CMD_GET(s16, 2);
-        val4->unk02 = CMD_GET(s16, 4);
-        val4->unk04 = CMD_GET(s16, 6);
-        val4->unk06 = CMD_GET(s16, 8);
-        val4->unk08 = CMD_GET(s16, 10);
-    }
-
-    sCurrentCmd = CMD_NEXT;
-}
-
 static void level_cmd_create_whirlpool(void) {
     struct Whirlpool *whirlpool;
     s32 index = CMD_GET(u8, 2);
@@ -755,6 +737,11 @@ static void level_cmd_get_or_set_var(void) {
     sCurrentCmd = CMD_NEXT;
 }
 
+static void level_cmd_load_yay0_fs(void) {
+    load_filesys_segment_decompress(CMD_GET(s16, 2), segmented_to_virtual(CMD_GET(const char*, 4)));
+    sCurrentCmd = CMD_NEXT;
+}
+
 static void (*LevelScriptJumpTable[])(void) = {
     /*00*/ level_cmd_load_and_execute,
     /*01*/ level_cmd_exit_and_execute,
@@ -814,9 +801,10 @@ static void (*LevelScriptJumpTable[])(void) = {
     /*37*/ level_cmd_set_menu_music,
     /*38*/ level_cmd_38,
     /*39*/ level_cmd_set_macro_objects,
-    /*3A*/ level_cmd_3A,
+    /*3A*/ NULL,
     /*3B*/ level_cmd_create_whirlpool,
     /*3C*/ level_cmd_get_or_set_var,
+    /*3D*/ level_cmd_load_yay0_fs,
 };
 
 struct LevelCommand *level_script_execute(struct LevelCommand *cmd) {
