@@ -26,6 +26,10 @@
 #ifdef SRAM
 #include "sram.h"
 #endif
+#ifdef UNF
+#include "usb/usb.h"
+#include "usb/debug.h"
+#endif
 #include <prevent_bss_reordering.h>
 
 // First 3 controller slots
@@ -770,6 +774,11 @@ void thread5_game_loop(UNUSED void *arg) {
             // amount of free space remaining.
             print_text_fmt_int(180, 20, "BUF %d", gGfxPoolEnd - (u8 *) gDisplayListHead);
         }
+#ifdef UNF
+        if (gPlayer1Controller->buttonPressed & L_TRIG) {
+            debug_screenshot();
+        }
+#endif
 #if 0
         if (gPlayer1Controller->buttonPressed & L_TRIG) {
             osStartThread(&hvqmThread);
