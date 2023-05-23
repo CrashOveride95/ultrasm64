@@ -318,7 +318,7 @@
     CMD_BBBB(0x3C, 0x04, op, var)
 
 #define LOAD_YAY0_FS(seg, path) \
-    CMD_BBH(0x3D, 0x0C, seg), \
+    CMD_BBH(0x3D, 0x08, seg), \
     CMD_PTR(path)
 
 #endif // LEVEL_COMMANDS_H

@@ -270,7 +270,6 @@ static void level_cmd_load_to_fixed_address(void) {
 }
 
 static void level_cmd_load_raw(void) {
-    osSyncPrintf("before load_segment\n");
     load_segment(CMD_GET(s16, 2), CMD_GET(void *, 4), CMD_GET(void *, 8),
             MEMORY_POOL_LEFT);
     sCurrentCmd = CMD_NEXT;

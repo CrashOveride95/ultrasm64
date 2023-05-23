@@ -68,7 +68,6 @@ u8 *sPoolStart;
 u8 *sPoolEnd;
 struct MainPoolBlock *sPoolListHeadL;
 struct MainPoolBlock *sPoolListHeadR;
-FIL f;
 
 
 static struct MainPoolState *gMainPoolState = NULL;
@@ -384,24 +383,43 @@ void *load_segment_decompress(s32 segment, u8 *srcStart, u8 *srcEnd) {
 void *load_filesys_segment_decompress(s32 segment, const char* path) {
 
     void *dest = NULL;
-    u32 filebytesread;
+    u32 *filebytesread = main_pool_alloc(sizeof(u32), MEMORY_POOL_RIGHT);
     osSyncPrintf("File: %s\n", path);
+    FIL *file = main_pool_alloc(sizeof(FIL), MEMORY_POOL_RIGHT);
     
-    f_open(&f, path, FA_READ);
-
-    u32 compSize = f_size(&f);
+    f_open(file, path, FA_READ);
+#ifdef GZIP
+    u32 compSize = (f_size(file) -4);
+#else
+    u32 compSize = f_size(file);
+#endif
     osSyncPrintf("compSize: %d\n",compSize);
     u8 *compressed = main_pool_alloc(compSize, MEMORY_POOL_RIGHT);
+#ifdef GZIP
+    // Decompressed size from end of gzip
+    u32 *size = (u32 *) (compressed + compSize);
+#else
     // Decompressed size from header (This works for non-mio0 because they also have the size in same place)
     u32 *size = (u32 *) (compressed + 4);
+#endif
     if (compressed != NULL) {
-        f_read(&f, compressed, compSize, &filebytesread);
-        f_close(&f);
+        f_read(file, compressed, compSize, filebytesread);
+        f_close(file);
         dest = main_pool_alloc(*size, MEMORY_POOL_LEFT);
         osSyncPrintf("size: %d\n",(u32)*size);
         if (dest != NULL) {
 			osSyncPrintf("start decompress\n");
+#ifdef GZIP
+            expand_gzip(compressed, dest, compSize, (u32)size);
+#elif RNC1
             Propack_UnpackM1(compressed, dest);
+#elif RNC2
+            Propack_UnpackM2(compressed, dest);
+#elif YAY0
+            slidstart(compressed, dest);
+#elif MIO0
+            decompress(compressed, dest);
+#endif
 			osSyncPrintf("end decompress\n");
             set_segment_base_addr(segment, dest);
             main_pool_free(compressed);
@@ -409,7 +427,8 @@ void *load_filesys_segment_decompress(s32 segment, const char* path) {
         }
     } else {
     }
-    osSyncPrintf("return: %d\n", dest);
+    main_pool_free(file);
+    main_pool_free(filebytesread);
     return dest;
 }
 

@@ -52,6 +52,7 @@ OUTPUT_ARCH (mips)
    BEGIN_SEG(name, 0x0E000000) \
    { \
       KEEP(BUILD_DIR/levels/name/script.o(.data)); \
+      KEEP(BUILD_DIR/levels/name/script.o(.rodata*)); \
       KEEP(BUILD_DIR/levels/name/geo.o(.data)); \
    } \
    END_SEG(name)
@@ -261,7 +262,6 @@ SECTIONS
    END_SEG(entry)
 
    /* load YAY0 and level data */
-   //YAY0_SEG(segment2, 0x02000000)
 #ifdef VERSION_EU
    YAY0_EU_SEG(translation_en, 0x19000000)
    YAY0_EU_SEG(translation_fr, 0x19000000)
@@ -408,6 +408,7 @@ SECTIONS
    BEGIN_SEG(scripts, 0x15000000)
    {
       BUILD_DIR/levels/scripts.o(.data);
+      BUILD_DIR/levels/scripts.o(.rodata*);
    }
    END_SEG(scripts)
 
