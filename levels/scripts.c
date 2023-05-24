@@ -59,8 +59,8 @@ static const LevelScript script_L5[4];
 #undef STUB_LEVEL
 
 const LevelScript level_main_scripts_entry[] = {
-    LOAD_YAY0(/*seg*/ 0x04, _group0_yay0SegmentRomStart, _group0_yay0SegmentRomEnd),
-    LOAD_YAY0(/*seg*/ 0x03, _common1_yay0SegmentRomStart, _common1_yay0SegmentRomEnd),
+    LOAD_YAY0_FS(/*seg*/ 0x04, "ultrasm64/actors/group0.szp"),
+    LOAD_YAY0_FS(/*seg*/ 0x03, "ultrasm64/actors/common1.szp"),
     LOAD_RAW( /*seg*/ 0x17, _group0_geoSegmentRomStart, _group0_geoSegmentRomEnd),
     LOAD_RAW( /*seg*/ 0x16, _common1_geoSegmentRomStart, _common1_geoSegmentRomEnd),
     LOAD_RAW( /*seg*/ 0x13, _behaviorSegmentRomStart, _behaviorSegmentRomEnd),

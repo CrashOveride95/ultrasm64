@@ -741,6 +741,11 @@ static void level_cmd_load_yay0_fs(void) {
     sCurrentCmd = CMD_NEXT;
 }
 
+static void level_cmd_load_yay0_texture_fs(void) {
+    load_filesys_segment_decompress_heap(CMD_GET(s16, 2), segmented_to_virtual(CMD_GET(const char*, 4)));
+    sCurrentCmd = CMD_NEXT;
+}
+
 static void (*LevelScriptJumpTable[])(void) = {
     /*00*/ level_cmd_load_and_execute,
     /*01*/ level_cmd_exit_and_execute,
@@ -804,6 +809,7 @@ static void (*LevelScriptJumpTable[])(void) = {
     /*3B*/ level_cmd_create_whirlpool,
     /*3C*/ level_cmd_get_or_set_var,
     /*3D*/ level_cmd_load_yay0_fs,
+    /*3E*/ level_cmd_load_yay0_texture_fs,
 };
 
 struct LevelCommand *level_script_execute(struct LevelCommand *cmd) {

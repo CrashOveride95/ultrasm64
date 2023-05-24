@@ -222,7 +222,7 @@ static const LevelScript script_func_local_4[] = {
 const LevelScript level_castle_inside_entry[] = {
     INIT_LEVEL(),
     LOAD_YAY0(        /*seg*/ 0x07, _castle_inside_segment_7SegmentRomStart, _castle_inside_segment_7SegmentRomEnd),
-    LOAD_YAY0_TEXTURE(/*seg*/ 0x09, _inside_yay0SegmentRomStart, _inside_yay0SegmentRomEnd),
+    LOAD_YAY0_FS_TEXTURE(/*seg*/ 0x09, "ultrasm64/bin/inside.szp"),
     LOAD_YAY0(        /*seg*/ 0x06, _group15_yay0SegmentRomStart, _group15_yay0SegmentRomEnd),
     LOAD_RAW(         /*seg*/ 0x0D, _group15_geoSegmentRomStart,  _group15_geoSegmentRomEnd),
     ALLOC_LEVEL_POOL(),

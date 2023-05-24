@@ -10,17 +10,19 @@ OUTPUT_ARCH (mips)
     .name addr : AT(__romPos)
 
 #define END_SEG(name) \
-    _##name##SegmentEnd = ADDR(.name) + SIZEOF(.name); \
-    _##name##SegmentRomEnd = __romPos + SIZEOF(.name); \
-    __romPos += SIZEOF(.name);
+    _##name##SegmentEnd = ALIGN(ADDR(.name) + SIZEOF(.name),0x10); \
+    _##name##SegmentRomEnd = _##name##SegmentEnd - _##name##SegmentStart + _##name##SegmentRomStart; \
+    __romPos = _##name##SegmentRomEnd; \
+    . = _##name##SegmentEnd;
 
 #define BEGIN_NOLOAD(name) \
     _##name##SegmentBssStart = ADDR(.name.noload); \
     .name.noload (NOLOAD) :
 
 #define END_NOLOAD(name) \
-    _##name##SegmentBssEnd = ADDR(.name.noload) + SIZEOF(.name.noload); \
-    _##name##SegmentBssSize = SIZEOF(.name.noload);
+    _##name##SegmentBssEnd = ALIGN(ADDR(.name.noload) + SIZEOF(.name.noload),0x10); \
+    _##name##SegmentBssSize = _##name##SegmentBssEnd - _##name##SegmentBssStart; \
+    . = _##name##SegmentBssEnd;
 
 #define YAY0_SEG(name, segAddr) \
    BEGIN_SEG(name##_yay0, segAddr) \
@@ -352,6 +354,7 @@ SECTIONS
    BEGIN_SEG(intro, 0x14000000)
    {
       KEEP(BUILD_DIR/levels/intro/script.o(.data));
+      KEEP(BUILD_DIR/levels/intro/script.o(.rodata*));
       KEEP(BUILD_DIR/levels/intro/geo.o(.data));
    }
    END_SEG(intro)
@@ -424,18 +427,6 @@ SECTIONS
    YAY0_SEG(bits_skybox, 0x0A000000)
 
    // Texture bins
-   YAY0_SEG(fire, 0x09000000)
-   YAY0_SEG(spooky, 0x09000000)
-   YAY0_SEG(generic, 0x09000000)
-   YAY0_SEG(water, 0x09000000)
-   YAY0_SEG(sky, 0x09000000)
-   YAY0_SEG(snow, 0x09000000)
-   YAY0_SEG(cave, 0x09000000)
-   YAY0_SEG(machine, 0x09000000)
-   YAY0_SEG(mountain, 0x09000000)
-   YAY0_SEG(grass, 0x09000000)
-   YAY0_SEG(outside, 0x09000000)
-   YAY0_SEG(inside, 0x09000000)
    YAY0_SEG(effect, 0x0B000000)
 
 #define STUB_LEVEL(_0, _1, _2, _3, _4, _5, _6, _7, _8)

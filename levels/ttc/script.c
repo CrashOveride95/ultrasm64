@@ -34,10 +34,10 @@ static const LevelScript script_func_local_2[] = {
 const LevelScript level_ttc_entry[] = {
     INIT_LEVEL(),
     LOAD_YAY0(        /*seg*/ 0x07, _ttc_segment_7SegmentRomStart, _ttc_segment_7SegmentRomEnd),
-    LOAD_YAY0_TEXTURE(/*seg*/ 0x09, _machine_yay0SegmentRomStart, _machine_yay0SegmentRomEnd),
+    LOAD_YAY0_FS_TEXTURE(/*seg*/ 0x09, "ultrasm64/bin/machine.szp"),
     LOAD_YAY0(        /*seg*/ 0x05, _group1_yay0SegmentRomStart, _group1_yay0SegmentRomEnd),
     LOAD_RAW(         /*seg*/ 0x0C, _group1_geoSegmentRomStart,  _group1_geoSegmentRomEnd),
-    LOAD_YAY0(        /*seg*/ 0x08, _common0_yay0SegmentRomStart, _common0_yay0SegmentRomEnd),
+    LOAD_YAY0_FS(     /*seg*/ 0x08, "ultrasm64/actors/common0.szp"),
     LOAD_RAW(         /*seg*/ 0x0F, _common0_geoSegmentRomStart,  _common0_geoSegmentRomEnd),
     ALLOC_LEVEL_POOL(),
     MARIO(/*model*/ MODEL_MARIO, /*behParam*/ 0x00000001, /*beh*/ bhvMario),

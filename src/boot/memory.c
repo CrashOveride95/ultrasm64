@@ -470,6 +470,49 @@ void *load_segment_decompress_heap(u32 segment, u8 *srcStart, u8 *srcEnd) {
     return gDecompressionHeap;
 }
 
+void *load_filesys_segment_decompress_heap(u32 segment, const char* path) {
+
+    u32 *filebytesread = main_pool_alloc(sizeof(u32), MEMORY_POOL_RIGHT);
+    osSyncPrintf("File: %s\n", path);
+    FIL *file = main_pool_alloc(sizeof(FIL), MEMORY_POOL_RIGHT);
+    
+    f_open(file, path, FA_READ);
+#ifdef GZIP
+    u32 compSize = (f_size(file) -4);
+#else
+    u32 compSize = f_size(file);
+#endif
+
+    u8 *compressed = main_pool_alloc(compSize, MEMORY_POOL_RIGHT);
+#ifdef GZIP
+    // Decompressed size from end of gzip
+    u32 *size = (u32 *) (compressed + compSize);
+#endif
+    if (compressed != NULL) {
+        f_read(file, compressed, compSize, filebytesread);
+        f_close(file);
+		osSyncPrintf("start decompress\n");
+#ifdef GZIP
+        expand_gzip(compressed, gDecompressionHeap, compSize, (u32)size);
+#elif RNC1
+        Propack_UnpackM1(compressed, gDecompressionHeap);
+#elif RNC2
+        Propack_UnpackM2(compressed, gDecompressionHeap);
+#elif YAY0
+        slidstart(compressed, gDecompressionHeap);
+#elif MIO0
+        decompress(compressed, gDecompressionHeap);
+#endif
+        osSyncPrintf("end decompress\n");
+        set_segment_base_addr(segment, gDecompressionHeap);
+        main_pool_free(compressed);
+    } else {
+    }
+    main_pool_free(file);
+    main_pool_free(filebytesread);
+    return gDecompressionHeap;
+}
+
 void load_engine_code_segment(void) {
     void *startAddr = (void *) _engineSegmentStart;
     u32 totalSize = _engineSegmentEnd - _engineSegmentStart;

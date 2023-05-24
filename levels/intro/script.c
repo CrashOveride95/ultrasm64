@@ -22,7 +22,7 @@ const LevelScript level_intro_splash_screen[] = {
     INIT_LEVEL(),
     FIXED_LOAD(/*loadAddr*/ _goddardSegmentStart, /*romStart*/ _goddardSegmentRomStart, /*romEnd*/ _goddardSegmentRomEnd),
     LOAD_RAW(/*seg*/ 0x13, _behaviorSegmentRomStart, _behaviorSegmentRomEnd),
-    LOAD_YAY0(/*seg*/ 0x07, _intro_segment_7SegmentRomStart, _intro_segment_7SegmentRomEnd),
+    LOAD_YAY0_FS(/*seg*/ 0x07, "ultrasm64/levels/intro/leveldata.szp"),
 
     // Load "Super Mario 64" logo
     ALLOC_LEVEL_POOL(),
@@ -54,7 +54,7 @@ const LevelScript level_intro_mario_head_regular[] = {
     LOAD_MARIO_HEAD(/*loadHeadID*/ REGULAR_FACE),
 #endif
     LOAD_RAW(/*seg*/ 0x13, _behaviorSegmentRomStart, _behaviorSegmentRomEnd),
-    LOAD_YAY0_TEXTURE(/*seg*/ 0x0A, _title_screen_bg_yay0SegmentRomStart, _title_screen_bg_yay0SegmentRomEnd),
+    LOAD_YAY0_FS_TEXTURE(/*seg*/ 0x0A, "ultrasm64/bin/title_screen_bg.szp"),
 
     ALLOC_LEVEL_POOL(),
     AREA(/*index*/ 1, intro_geo_mario_head_regular),
@@ -81,7 +81,7 @@ const LevelScript level_intro_mario_head_dizzy[] = {
     LOAD_MARIO_HEAD(/*loadHeadID*/ DIZZY_FACE),
 #endif
     LOAD_RAW(/*seg*/ 0x13, _behaviorSegmentRomStart, _behaviorSegmentRomEnd),
-    LOAD_YAY0_TEXTURE(/*seg*/ 0x0A, _title_screen_bg_yay0SegmentRomStart, _title_screen_bg_yay0SegmentRomEnd),
+    LOAD_YAY0_FS_TEXTURE(/*seg*/ 0x0A, "ultrasm64/bin/title_screen_bg.szp"),
     ALLOC_LEVEL_POOL(),
 
     AREA(/*index*/ 1, intro_geo_mario_head_dizzy),
@@ -103,8 +103,8 @@ const LevelScript level_intro_mario_head_dizzy[] = {
 const LevelScript level_intro_entry_4[] = {
     INIT_LEVEL(),
     LOAD_RAW(/*seg*/ 0x13, _behaviorSegmentRomStart, _behaviorSegmentRomEnd),
-    LOAD_YAY0_TEXTURE(/*seg*/ 0x0A, _title_screen_bg_yay0SegmentRomStart, _title_screen_bg_yay0SegmentRomEnd),
-    LOAD_YAY0(/*seg*/ 0x07, _debug_level_select_yay0SegmentRomStart, _debug_level_select_yay0SegmentRomEnd),
+    LOAD_YAY0_FS_TEXTURE(/*seg*/ 0x0A, "ultrasm64/bin/title_screen_bg.szp"),
+    LOAD_YAY0_FS(/*seg*/ 0x07, "ultrasm64/bin/debug_level_select.szp"),
     FIXED_LOAD(/*loadAddr*/ _goddardSegmentStart, /*romStart*/ _goddardSegmentRomStart, /*romEnd*/ _goddardSegmentRomEnd),
     ALLOC_LEVEL_POOL(),
 

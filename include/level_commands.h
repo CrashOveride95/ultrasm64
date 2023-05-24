@@ -321,4 +321,8 @@
     CMD_BBH(0x3D, 0x08, seg), \
     CMD_PTR(path)
 
+#define LOAD_YAY0_FS_TEXTURE(seg, path) \
+    CMD_BBH(0x3E, 0x08, seg), \
+    CMD_PTR(path)
+
 #endif // LEVEL_COMMANDS_H
