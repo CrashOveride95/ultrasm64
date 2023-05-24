@@ -45,10 +45,10 @@ static const LevelScript script_func_local_2[] = {
 
 const LevelScript level_bits_entry[] = {
     INIT_LEVEL(),
-    LOAD_YAY0(        /*seg*/ 0x07, _bits_segment_7SegmentRomStart, _bits_segment_7SegmentRomEnd),
-    LOAD_YAY0(        /*seg*/ 0x0A, _bits_skybox_yay0SegmentRomStart, _bits_skybox_yay0SegmentRomEnd),
+    LOAD_YAY0_FS(     /*seg*/ 0x07, "ultrasm64/levels/bits/leveldata.szp"),
+    LOAD_YAY0_FS(     /*seg*/ 0x0A, "ultrasm64/bin/bits_skybox.szp"),
     LOAD_YAY0_FS_TEXTURE(/*seg*/ 0x09, "ultrasm64/bin/sky.szp"),
-    LOAD_YAY0(        /*seg*/ 0x06, _group14_yay0SegmentRomStart, _group14_yay0SegmentRomEnd),
+    LOAD_YAY0_FS(     /*seg*/ 0x06, "ultrasm64/actors/group14.szp"),
     LOAD_RAW(         /*seg*/ 0x0D, _group14_geoSegmentRomStart,  _group14_geoSegmentRomEnd),
     LOAD_YAY0_FS(     /*seg*/ 0x08, "ultrasm64/actors/common0.szp"),
     LOAD_RAW(         /*seg*/ 0x0F, _common0_geoSegmentRomStart,  _common0_geoSegmentRomEnd),

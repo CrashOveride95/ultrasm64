@@ -78,12 +78,12 @@ static const LevelScript script_func_local_4[] = {
 
 const LevelScript level_bbh_entry[] = {
     INIT_LEVEL(),
-    LOAD_YAY0(        /*seg*/ 0x07, _bbh_segment_7SegmentRomStart, _bbh_segment_7SegmentRomEnd),
-    LOAD_YAY0(        /*seg*/ 0x0A, _bbh_skybox_yay0SegmentRomStart, _bbh_skybox_yay0SegmentRomEnd),
+    LOAD_YAY0_FS(     /*seg*/ 0x07, "ultrasm64/levels/bbh/leveldata.szp"),
+    LOAD_YAY0_FS(     /*seg*/ 0x0A, "ultrasm64/bin/bbh_skybox.szp"),
     LOAD_YAY0_FS_TEXTURE(/*seg*/ 0x09, "ultrasm64/bin/spooky.szp"),
-    LOAD_YAY0(        /*seg*/ 0x05, _group9_yay0SegmentRomStart, _group9_yay0SegmentRomEnd),
+    LOAD_YAY0_FS(     /*seg*/ 0x05, "ultrasm64/actors/group9.szp"),
     LOAD_RAW(         /*seg*/ 0x0C, _group9_geoSegmentRomStart,  _group9_geoSegmentRomEnd),
-    LOAD_YAY0(        /*seg*/ 0x06, _group17_yay0SegmentRomStart, _group17_yay0SegmentRomEnd),
+    LOAD_YAY0_FS(     /*seg*/ 0x06, "ultrasm64/actors/group17.szp"),
     LOAD_RAW(         /*seg*/ 0x0D, _group17_geoSegmentRomStart, _group17_geoSegmentRomEnd),
     LOAD_YAY0_FS(     /*seg*/ 0x08, "ultrasm64/actors/common0.szp"),
     LOAD_RAW(         /*seg*/ 0x0F, _common0_geoSegmentRomStart,  _common0_geoSegmentRomEnd),

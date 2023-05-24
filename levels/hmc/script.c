@@ -70,11 +70,11 @@ static const LevelScript script_func_local_4[] = {
 
 const LevelScript level_hmc_entry[] = {
     INIT_LEVEL(),
-    LOAD_YAY0(        /*seg*/ 0x07, _hmc_segment_7SegmentRomStart, _hmc_segment_7SegmentRomEnd),
+    LOAD_YAY0_FS(     /*seg*/ 0x07, "ultrasm64/levels/hmc/leveldata.szp"),
     LOAD_YAY0_FS_TEXTURE(/*seg*/ 0x09, "ultrasm64/bin/cave.szp"),
-    LOAD_YAY0(        /*seg*/ 0x05, _group6_yay0SegmentRomStart, _group6_yay0SegmentRomEnd),
+    LOAD_YAY0_FS(     /*seg*/ 0x05, "ultrasm64/actors/group6.szp"),
     LOAD_RAW(         /*seg*/ 0x0C, _group6_geoSegmentRomStart, _group6_geoSegmentRomEnd),
-    LOAD_YAY0(        /*seg*/ 0x06, _group17_yay0SegmentRomStart, _group17_yay0SegmentRomEnd),
+    LOAD_YAY0_FS(     /*seg*/ 0x06, "ultrasm64/actors/group17.szp"),
     LOAD_RAW(         /*seg*/ 0x0D, _group17_geoSegmentRomStart, _group17_geoSegmentRomEnd),
     LOAD_YAY0_FS(     /*seg*/ 0x08, "ultrasm64/actors/common0.szp"),
     LOAD_RAW(         /*seg*/ 0x0F, _common0_geoSegmentRomStart,  _common0_geoSegmentRomEnd),

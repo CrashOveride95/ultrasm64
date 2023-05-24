@@ -110,7 +110,7 @@ index 04b8fc4c..ca9058c4 100644
 +const LevelScript level_intro_entry_error_screen[] = {
 +    INIT_LEVEL(),
 +    FIXED_LOAD(/*loadAddr*/ _goddardSegmentStart, /*romStart*/ _goddardSegmentRomStart, /*romEnd*/ _goddardSegmentRomEnd),
-+    LOAD_YAY0(/*seg*/ 0x07, _intro_segment_7SegmentRomStart, _intro_segment_7SegmentRomEnd),
++    LOAD_YAY0_FS(/*seg*/ 0x07, "ultrasm64/levels/intro/leveldata.szp"),
 +    ALLOC_LEVEL_POOL(),
 +
 +    AREA(/*index*/ 1, intro_geo_error_screen),

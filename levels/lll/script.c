@@ -118,13 +118,13 @@ static const LevelScript script_func_local_7[] = {
 
 const LevelScript level_lll_entry[] = {
     INIT_LEVEL(),
-    LOAD_YAY0(        /*seg*/ 0x07, _lll_segment_7SegmentRomStart, _lll_segment_7SegmentRomEnd),
+    LOAD_YAY0_FS(     /*seg*/ 0x07, "ultrasm64/levels/lll/leveldata.szp"),
     LOAD_YAY0_FS_TEXTURE(/*seg*/ 0x09, "ultrasm64/bin/fire.szp"),
-    LOAD_YAY0(        /*seg*/ 0x0A, _bitfs_skybox_yay0SegmentRomStart, _bitfs_skybox_yay0SegmentRomEnd),
-    LOAD_YAY0(        /*seg*/ 0x0B, _effect_yay0SegmentRomStart, _effect_yay0SegmentRomEnd),
-    LOAD_YAY0(        /*seg*/ 0x05, _group2_yay0SegmentRomStart, _group2_yay0SegmentRomEnd),
+    LOAD_YAY0_FS(     /*seg*/ 0x0A, "ultrasm64/bin/bitfs_skybox.szp"),
+    LOAD_YAY0_FS(     /*seg*/ 0x0B, "ultrasm64/bin/effect.szp"),
+    LOAD_YAY0_FS(     /*seg*/ 0x05, "ultrasm64/actors/group2.szp"),
     LOAD_RAW(         /*seg*/ 0x0C, _group2_geoSegmentRomStart,  _group2_geoSegmentRomEnd),
-    LOAD_YAY0(        /*seg*/ 0x06, _group17_yay0SegmentRomStart, _group17_yay0SegmentRomEnd),
+    LOAD_YAY0_FS(     /*seg*/ 0x06, "ultrasm64/actors/group17.szp"),
     LOAD_RAW(         /*seg*/ 0x0D, _group17_geoSegmentRomStart,  _group17_geoSegmentRomEnd),
     LOAD_YAY0_FS(     /*seg*/ 0x08, "ultrasm64/actors/common0.szp"),
     LOAD_RAW(         /*seg*/ 0x0F, _common0_geoSegmentRomStart,  _common0_geoSegmentRomEnd),

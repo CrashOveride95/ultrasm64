@@ -82,10 +82,10 @@ static const LevelScript script_func_local_7[] = {
 
 const LevelScript level_ttm_entry[] = {
     INIT_LEVEL(),
-    LOAD_YAY0(        /*seg*/ 0x07, _ttm_segment_7SegmentRomStart, _ttm_segment_7SegmentRomEnd),
+    LOAD_YAY0_FS(     /*seg*/ 0x07, "ultrasm64/levels/ttm/leveldata.szp"),
     LOAD_YAY0_FS_TEXTURE(/*seg*/ 0x09, "ultrasm64/bin/mountain.szp"),
-    LOAD_YAY0(        /*seg*/ 0x0A, _water_skybox_yay0SegmentRomStart, _water_skybox_yay0SegmentRomEnd),
-    LOAD_YAY0(        /*seg*/ 0x05, _group6_yay0SegmentRomStart, _group6_yay0SegmentRomEnd),
+    LOAD_YAY0_FS(     /*seg*/ 0x0A, "ultrasm64/bin/water_skybox.szp"),
+    LOAD_YAY0_FS(     /*seg*/ 0x05, "ultrasm64/actors/group6.szp"),
     LOAD_RAW(         /*seg*/ 0x0C, _group6_geoSegmentRomStart,  _group6_geoSegmentRomEnd),
     LOAD_YAY0_FS(     /*seg*/ 0x08, "ultrasm64/actors/common0.szp"),
     LOAD_RAW(         /*seg*/ 0x0F, _common0_geoSegmentRomStart,  _common0_geoSegmentRomEnd),

@@ -45,12 +45,6 @@ OUTPUT_ARCH (mips)
    _##name##_mio0SegmentRomEnd = _##name##_yay0SegmentRomEnd;
 
 #define STANDARD_LEVEL(name) \
-   BEGIN_SEG(name##_segment_7, 0x07000000) \
-   { \
-      KEEP(BUILD_DIR/levels/name/leveldata.szp.o(.data)); \
-      . = ALIGN(0x10); \
-   } \
-   END_SEG(name##_segment_7) \
    BEGIN_SEG(name, 0x0E000000) \
    { \
       KEEP(BUILD_DIR/levels/name/script.o(.data)); \
@@ -60,19 +54,11 @@ OUTPUT_ARCH (mips)
    END_SEG(name)
 
 #define STANDARD_OBJECTS(name, segAddr, geoAddr) \
-   BEGIN_SEG(name##_yay0, segAddr) \
-   { \
-      KEEP(BUILD_DIR/actors/name.szp.o(.data)); \
-      . = ALIGN(0x10); \
-   } \
-   END_SEG(name##_yay0) \
    BEGIN_SEG(name##_geo, geoAddr) \
    { \
       KEEP(BUILD_DIR/actors/name##_geo.o(.data)); \
    } \
-   END_SEG(name##_geo) \
-   _##name##_mio0SegmentRomStart = _##name##_yay0SegmentRomStart; \
-   _##name##_mio0SegmentRomEnd = _##name##_yay0SegmentRomEnd;
+   END_SEG(name##_geo)
 
 SECTIONS
 {
@@ -358,15 +344,6 @@ SECTIONS
       KEEP(BUILD_DIR/levels/intro/geo.o(.data));
    }
    END_SEG(intro)
-   BEGIN_SEG(intro_segment_7, 0x07000000)
-   {
-      KEEP(BUILD_DIR/levels/intro/leveldata.szp.o(.data));
-      . = ALIGN(0x10);
-   }
-   END_SEG(intro_segment_7)
-
-   YAY0_SEG(debug_level_select, 0x07000000)
-   YAY0_SEG(title_screen_bg, 0x0A000000)
 
 #ifdef GODDARD
    BEGIN_SEG(gd_dynlists, 0x04000000)
@@ -414,20 +391,6 @@ SECTIONS
       BUILD_DIR/levels/scripts.o(.rodata*);
    }
    END_SEG(scripts)
-
-   YAY0_SEG(water_skybox, 0x0A000000)
-   YAY0_SEG(ccm_skybox, 0x0A000000)
-   YAY0_SEG(clouds_skybox, 0x0A000000)
-   YAY0_SEG(bitfs_skybox, 0x0A000000)
-   YAY0_SEG(wdw_skybox, 0x0A000000)
-   YAY0_SEG(cloud_floor_skybox, 0x0A000000)
-   YAY0_SEG(ssl_skybox, 0x0A000000)
-   YAY0_SEG(bbh_skybox, 0x0A000000)
-   YAY0_SEG(bidw_skybox, 0x0A000000)
-   YAY0_SEG(bits_skybox, 0x0A000000)
-
-   // Texture bins
-   YAY0_SEG(effect, 0x0B000000)
 
 #define STUB_LEVEL(_0, _1, _2, _3, _4, _5, _6, _7, _8)
 #define DEFINE_LEVEL(_0, _1, _2, folder, _4, _5, _6, _7, _8, _9, _10) STANDARD_LEVEL(folder)

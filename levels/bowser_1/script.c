@@ -18,9 +18,9 @@
 
 const LevelScript level_bowser_1_entry[] = {
     INIT_LEVEL(),
-    LOAD_YAY0(/*seg*/ 0x07, _bowser_1_segment_7SegmentRomStart, _bowser_1_segment_7SegmentRomEnd),
-    LOAD_YAY0(/*seg*/ 0x0A, _bidw_skybox_yay0SegmentRomStart, _bidw_skybox_yay0SegmentRomEnd),
-    LOAD_YAY0(/*seg*/ 0x06, _group12_yay0SegmentRomStart, _group12_yay0SegmentRomEnd),
+    LOAD_YAY0_FS(/*seg*/ 0x07, "ultrasm64/levels/bowser_1/leveldata.szp"),
+    LOAD_YAY0_FS(/*seg*/ 0x0A, "ultrasm64/bin/bidw_skybox.szp"),
+    LOAD_YAY0_FS(/*seg*/ 0x06, "ultrasm64/actors/group12.szp"),
     LOAD_RAW( /*seg*/ 0x0D, _group12_geoSegmentRomStart, _group12_geoSegmentRomEnd),
     ALLOC_LEVEL_POOL(),
     MARIO(/*model*/ MODEL_MARIO, /*behParam*/ 0x00000001, /*beh*/ bhvMario),
