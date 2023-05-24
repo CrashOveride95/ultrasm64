@@ -132,7 +132,7 @@ SECTIONS
       */libgcc.a:*.o(.text);
       */librtc.a:*.o(.text);
       */libz.a:*.o(.text);
-      */libcart_ultra.a:*.o(.text);
+      */libcart.a:*.o(.text);
       */libhvqm2.a:*.o(.text);
       lib/rspboot.o(.text);
 #include "rsptext.inc.ld"
@@ -152,7 +152,7 @@ SECTIONS
       */libhvqm2.a:*.o(.data*);
       */librtc.a:*.o(.data*);
       */libz.a:*.o(.data*);
-      */libcart_ultra.a:*.o(.data*);
+      */libcart.a:*.o(.data*);
 #include "rspdata.inc.ld"
       BUILD_DIR/lib/aspMain.o(.data*);
       lib/PR/audio/n_aspMain.o(.data*);
@@ -170,7 +170,7 @@ SECTIONS
       */libgcc.a:*.o(.rodata*);
       */librtc.a:*.o(.rodata*);
       */libz.a:*.o(.rodata*);
-      */libcart_ultra.a:*.o(.rodata*);
+      */libcart.a:*.o(.rodata*);
 
       lib/PR/hvqm/hvqm2sp1.o(.rodata*);
    }
@@ -193,7 +193,7 @@ SECTIONS
       */libhvqm2.a:*.o(.bss*);
       */librtc.a:*.o(.bss*);
       */libz.a:*.o(.bss*);
-      */libcart_ultra.a:*.o(.bss*);
+      */libcart.a:*.o(.bss*);
       . = ALIGN(0x8);
    }
    END_NOLOAD(main)
