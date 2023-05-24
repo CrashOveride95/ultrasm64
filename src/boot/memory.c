@@ -399,12 +399,18 @@ void *load_filesys_segment_decompress(s32 segment, const char* path) {
 #else
     void *dest = NULL;
     u32 *filebytesread = main_pool_alloc(sizeof(u32), MEMORY_POOL_RIGHT);
-    osSyncPrintf("File: %s\n", path);
     FIL *file = main_pool_alloc(sizeof(FIL), MEMORY_POOL_RIGHT);
+    FRESULT fileres;
+    osSyncPrintf("File: %s\n", path);
     
-    f_open(file, path, FA_READ);
+    fileres = f_open(file, path, FA_READ);
+    if (fileres != FR_OK){
+        osSyncPrintf("f_open failed\n");
+        osSyncPrintf("f_open = %d\n",fileres);
+        return 0;
+    }
 #ifdef GZIP
-    u32 compSize = (f_size(file) -4);
+    u32 compSize = (f_size(file) - 4);
     u32 realcompSize = f_size(file);
 #else
     u32 compSize = f_size(file);
@@ -420,9 +426,22 @@ void *load_filesys_segment_decompress(s32 segment, const char* path) {
 #endif
 
     if (compressed != NULL) {
-
-        f_read(file, compressed, realcompSize, filebytesread);
-        f_close(file);
+#ifdef GZIP
+        fileres = f_read(file, compressed, realcompSize, filebytesread);
+#else
+        fileres = f_read(file, compressed, compSize, filebytesread);
+#endif
+        if (fileres != FR_OK){
+            osSyncPrintf("f_read failed\n");
+            osSyncPrintf("f_read = %d",fileres);
+            return 0;
+        }
+        fileres = f_close(file);
+        if (fileres != FR_OK){
+            osSyncPrintf("f_close failed\n");
+            osSyncPrintf("f_close = %d",fileres);
+            return 0;
+        }
 
         dest = main_pool_alloc(*size, MEMORY_POOL_LEFT);
 
@@ -502,12 +521,19 @@ void *load_filesys_segment_decompress_heap(u32 segment, const char* path) {
     set_segment_base_addr(segment, gDecompressionHeap);
 #else
     u32 *filebytesread = main_pool_alloc(sizeof(u32), MEMORY_POOL_RIGHT);
-    osSyncPrintf("File: %s\n", path);
     FIL *file = main_pool_alloc(sizeof(FIL), MEMORY_POOL_RIGHT);
+    FRESULT fileres;
+    osSyncPrintf("File: %s\n", path);
     
-    f_open(file, path, FA_READ);
+    fileres = f_open(file, path, FA_READ);
+    if (fileres != FR_OK){
+        osSyncPrintf("f_open failed\n");
+        osSyncPrintf("f_open = %d\n",fileres);
+        return 0;
+    }
 #ifdef GZIP
-    u32 compSize = (f_size(file) -4);
+    u32 compSize = (f_size(file) - 4);
+    u32 realcompSize = f_size(file);
 #else
     u32 compSize = f_size(file);
 #endif
@@ -518,8 +544,22 @@ void *load_filesys_segment_decompress_heap(u32 segment, const char* path) {
     u32 *size = (u32 *) (compressed + compSize);
 #endif
     if (compressed != NULL) {
-        f_read(file, compressed, compSize, filebytesread);
-        f_close(file);
+#ifdef GZIP
+        fileres = f_read(file, compressed, realcompSize, filebytesread);
+#else
+        fileres = f_read(file, compressed, compSize, filebytesread);
+#endif
+        if (fileres != FR_OK){
+            osSyncPrintf("f_read failed\n");
+            osSyncPrintf("f_read = %d\n",fileres);
+            return 0;
+        }
+        fileres = f_close(file);
+        if (fileres != FR_OK){
+            osSyncPrintf("f_close failed\n");
+            osSyncPrintf("f_close = %d\n",fileres);
+            return 0;
+        }
 		osSyncPrintf("start decompress\n");
 #ifdef GZIP
         expand_gzip(compressed, gDecompressionHeap, compSize, (u32)size);

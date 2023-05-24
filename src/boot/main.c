@@ -344,8 +344,6 @@ void *mem_load_bank(const char *path)
     {
         osSyncPrintf("f_open() failed\n");
     }
-    osSyncPrintf("f_size=%d\n", f_size(&f));
-    osSyncPrintf("ptr=%p\n", ptr);
     return ptr;
 }
 
@@ -361,7 +359,7 @@ void thread3_main(UNUSED void *arg) {
     debug_initialize();
 #endif
     cart_init();
-    osSyncPrintf("initFatFs returned %d \n",initFatFs());
+    initFatFs();
 
 #ifdef DEBUG
     osSyncPrintf("Super Mario 64\n");

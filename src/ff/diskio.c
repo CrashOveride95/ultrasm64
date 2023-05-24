@@ -5,6 +5,11 @@
 
 #include "ff.h"			/* Obtains integer types */
 #include "diskio.h"		/* Declarations of disk functions */
+#ifdef _ULTRA64
+#include <ultra64.h>
+#else
+#include <libdragon.h>
+#endif
 #include <cart.h>
 
 /* Definitions of physical drive number for each drive */
