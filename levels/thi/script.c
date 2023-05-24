@@ -80,7 +80,7 @@ static const LevelScript script_func_local_8[] = {
 const LevelScript level_thi_entry[] = {
     INIT_LEVEL(),
     LOAD_YAY0_FS(     /*seg*/ 0x07, "ultrasm64/levels/thi/leveldata.szp"),
-    LOAD_YAY0_FS_TEXTURE(/*seg*/ 0x09, "ultrasm64/actors/grass.szp"),
+    LOAD_YAY0_FS_TEXTURE(/*seg*/ 0x09, "ultrasm64/bin/grass.szp"),
     LOAD_YAY0_FS(     /*seg*/ 0x0A, "ultrasm64/bin/water_skybox.szp"),
     LOAD_YAY0_FS(     /*seg*/ 0x05, "ultrasm64/actors/group11.szp"),
     LOAD_RAW(         /*seg*/ 0x0C, _group11_geoSegmentRomStart,  _group11_geoSegmentRomEnd),
