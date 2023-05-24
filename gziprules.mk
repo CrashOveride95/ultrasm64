@@ -12,6 +12,7 @@ $(BUILD_DIR)/%.szp: $(BUILD_DIR)/%.gz
 	$(call print,Converting:,$<,$@)
 	$(V)dd bs=10 skip=1 if=$< of=$(<:.gz=.gz.strip) status=none
 	$(V)$(FILESIZER) $(<:.gz=.gz.strip) $@ `stat --format="%s" $(<:.gz=.bin)`
+	$(V)cp $@ $(subst $(BUILD_DIR),$(BUILD_DIR)/finalfs,$@)
 
 # convert binary szp to object file
 $(BUILD_DIR)/%.szp.o: $(BUILD_DIR)/%.szp

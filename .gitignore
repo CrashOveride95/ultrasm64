@@ -84,3 +84,4 @@ build/*
 
 !/lib/PR/hvqm/*.o
 
+log.txt

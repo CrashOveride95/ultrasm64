@@ -18,6 +18,11 @@
 
 #define MUSIC_NONE 0xFFFF
 
+u8 *gSoundDataADSR;
+u8 *gSoundDataRaw;
+u8 *gMusicData;
+u8 *gBankSetsData;
+
 static Vec3f unused80339DC0;
 static OSMesgQueue sSoundMesgQueue;
 static OSMesg sSoundMesgBuf[1];
@@ -329,10 +334,18 @@ void audio_game_loop_tick(void) {
     audio_signal_game_loop_tick();
 }
 
+void loadin_audiodata(void){
+      gSoundDataADSR  = (u8 *)((long)mem_load_bank("ultrasm64/sound/sound_data.ctl") & 0x0FFFFFFF);
+      gSoundDataRaw   = (u8 *)((long)mem_load_bank("ultrasm64/sound/sound_data.tbl") & 0x0FFFFFFF);
+      gMusicData      = (u8 *)((long)mem_load_bank("ultrasm64/sound/sequences.bin") & 0x0FFFFFFF);
+      gBankSetsData   = (u8 *)((long)mem_load_bank("ultrasm64/sound/bank_sets") & 0x0FFFFFFF);
+}
+
 /**
  * Sound processing thread. Runs at 60 FPS.
  */
 void thread4_sound(UNUSED void *arg) {
+    loadin_audiodata();
     audio_init();
     sound_init();
 

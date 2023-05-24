@@ -47,6 +47,7 @@ extern u8 _engineSegmentBssEnd[];
 extern u8 _mainSegmentEnd[];
 extern u8 _engineSegmentEnd[];
 extern u8 _framebuffersSegmentBssEnd[];
+extern u8 _RomEnd[];
 
 DECLARE_LEVEL_SEGMENT(menu)
 DECLARE_LEVEL_SEGMENT(intro)

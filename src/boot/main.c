@@ -321,6 +321,34 @@ FRESULT initFatFs()
 	return f_mount(&FatFs, "", 0);
 }
 
+void *mem_load_bank(const char *path)
+{
+    static char *rom_end = (char *)(0xB0000000 + _RomEnd);
+    char *ptr = NULL;
+    FIL f;
+    UINT n;
+    if (f_open(&f, path, FA_READ) == FR_OK)
+    {
+        if (f_read(&f, rom_end, f_size(&f), &n) == FR_OK)
+        {
+            ptr = rom_end;
+            rom_end += f_size(&f);
+        }
+        else
+        {
+            osSyncPrintf("f_read() failed\n");
+        }
+        f_close(&f);
+    }
+    else
+    {
+        osSyncPrintf("f_open() failed\n");
+    }
+    osSyncPrintf("f_size=%d\n", f_size(&f));
+    osSyncPrintf("ptr=%p\n", ptr);
+    return ptr;
+}
+
 void thread3_main(UNUSED void *arg) {
     setup_mesg_queues();
     alloc_pool();
@@ -332,7 +360,6 @@ void thread3_main(UNUSED void *arg) {
 #ifdef UNF
     debug_initialize();
 #endif
-
     cart_init();
     osSyncPrintf("initFatFs returned %d \n",initFatFs());
 

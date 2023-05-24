@@ -1250,16 +1250,13 @@ s32 lvl_init_from_save_file(UNUSED s16 arg0, s32 levelNum) {
     s16 language = eu_get_language();
     switch (language) {
         case LANGUAGE_ENGLISH:
-            load_segment_decompress(0x19, _translation_en_yay0SegmentRomStart,
-                                    _translation_en_yay0SegmentRomEnd);
+            load_filesys_segment_decompress(0x19, "ultrasm64/bin/eu/translation_en.szp");
             break;
         case LANGUAGE_FRENCH:
-            load_segment_decompress(0x19, _translation_fr_yay0SegmentRomStart,
-                                    _translation_fr_yay0SegmentRomEnd);
+            load_filesys_segment_decompress(0x19, "ultrasm64/bin/eu/translation_fr.szp");
             break;
         case LANGUAGE_GERMAN:
-            load_segment_decompress(0x19, _translation_de_yay0SegmentRomStart,
-                                    _translation_de_yay0SegmentRomEnd);
+            load_filesys_segment_decompress(0x19, "ultrasm64/bin/eu/translation_de.szp");
             break;
     }
 #endif

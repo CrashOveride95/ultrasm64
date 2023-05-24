@@ -406,7 +406,6 @@ SECTIONS
       KEEP(BUILD_DIR/assets/mario_anim_data.o(.data));
       KEEP(BUILD_DIR/assets/mario_anim_data.o(.rodata));
       KEEP(BUILD_DIR/assets/demo_data.o(.data));
-      KEEP(BUILD_DIR/sound/sound_data.o(.data));
    }
    END_SEG(assets)
 #ifdef HVQM 
@@ -447,6 +446,7 @@ SECTIONS
    /* DWARF Extension.  */
    .debug_macro    0 : { *(.debug_macro) }
    .gnu.attributes 0 : { KEEP (*(.gnu.attributes)) }
+   _RomEnd = __romPos;
    /* Discard everything not specifically mentioned above. */
    /DISCARD/ :
    {

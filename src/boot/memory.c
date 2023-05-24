@@ -381,7 +381,22 @@ void *load_segment_decompress(s32 segment, u8 *srcStart, u8 *srcEnd) {
 }
 
 void *load_filesys_segment_decompress(s32 segment, const char* path) {
-
+#ifdef UNCOMPRESSED
+    void *dest = NULL;
+    u32 *filebytesread = main_pool_alloc(sizeof(u32), MEMORY_POOL_RIGHT);
+    FIL *file = main_pool_alloc(sizeof(FIL), MEMORY_POOL_RIGHT);
+    osSyncPrintf("File: %s\n", path);
+    u32 compSize = f_size(file);
+    
+    void *dest = main_pool_alloc(compSize, MEMORY_POOL_LEFT);
+    
+    if (dest != NULL) {
+        f_read(file, dest, compSize, filebytesread);
+        f_close(file);
+        set_segment_base_addr(segment, dest);
+    } else {
+    }
+#else
     void *dest = NULL;
     u32 *filebytesread = main_pool_alloc(sizeof(u32), MEMORY_POOL_RIGHT);
     osSyncPrintf("File: %s\n", path);
@@ -390,10 +405,11 @@ void *load_filesys_segment_decompress(s32 segment, const char* path) {
     f_open(file, path, FA_READ);
 #ifdef GZIP
     u32 compSize = (f_size(file) -4);
+    u32 realcompSize = f_size(file);
 #else
     u32 compSize = f_size(file);
 #endif
-    osSyncPrintf("compSize: %d\n",compSize);
+
     u8 *compressed = main_pool_alloc(compSize, MEMORY_POOL_RIGHT);
 #ifdef GZIP
     // Decompressed size from end of gzip
@@ -402,11 +418,14 @@ void *load_filesys_segment_decompress(s32 segment, const char* path) {
     // Decompressed size from header (This works for non-mio0 because they also have the size in same place)
     u32 *size = (u32 *) (compressed + 4);
 #endif
+
     if (compressed != NULL) {
-        f_read(file, compressed, compSize, filebytesread);
+
+        f_read(file, compressed, realcompSize, filebytesread);
         f_close(file);
+
         dest = main_pool_alloc(*size, MEMORY_POOL_LEFT);
-        osSyncPrintf("size: %d\n",(u32)*size);
+
         if (dest != NULL) {
 			osSyncPrintf("start decompress\n");
 #ifdef GZIP
@@ -427,6 +446,7 @@ void *load_filesys_segment_decompress(s32 segment, const char* path) {
         }
     } else {
     }
+#endif
     main_pool_free(file);
     main_pool_free(filebytesread);
     return dest;
@@ -471,7 +491,16 @@ void *load_segment_decompress_heap(u32 segment, u8 *srcStart, u8 *srcEnd) {
 }
 
 void *load_filesys_segment_decompress_heap(u32 segment, const char* path) {
+#ifdef UNCOMPRESSED
+    u32 *filebytesread = main_pool_alloc(sizeof(u32), MEMORY_POOL_RIGHT);
+    FIL *file = main_pool_alloc(sizeof(FIL), MEMORY_POOL_RIGHT);
+    osSyncPrintf("File: %s\n", path);
+    u32 compSize = f_size(file);
 
+    f_read(file, gDecompressionHeap, compSize, filebytesread);
+    f_close(file);
+    set_segment_base_addr(segment, gDecompressionHeap);
+#else
     u32 *filebytesread = main_pool_alloc(sizeof(u32), MEMORY_POOL_RIGHT);
     osSyncPrintf("File: %s\n", path);
     FIL *file = main_pool_alloc(sizeof(FIL), MEMORY_POOL_RIGHT);
@@ -508,6 +537,7 @@ void *load_filesys_segment_decompress_heap(u32 segment, const char* path) {
         main_pool_free(compressed);
     } else {
     }
+#endif
     main_pool_free(file);
     main_pool_free(filebytesread);
     return gDecompressionHeap;
