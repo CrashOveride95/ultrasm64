@@ -130,12 +130,16 @@ void create_thread(OSThread *thread, OSId id, void (*entry)(void *), void *arg, 
 extern void func_sh_802f69cc(void);
 #endif
 
+extern FIL sdsavefile;
 void handle_nmi_request(void) {
     gResetTimer = 1;
     gNmiResetBarsTimer = 0;
     stop_sounds_in_continuous_banks();
     sound_banks_disable(SEQ_PLAYER_SFX, SOUND_BANKS_BACKGROUND);
     fadeout_music(90);
+#ifdef SDSAVE
+    f_close(&sdsavefile);
+#endif
 #ifdef VERSION_SH
     func_sh_802f69cc();
 #endif

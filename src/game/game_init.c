@@ -54,6 +54,9 @@ s8 gEepromProbe;
 #ifdef SRAM
 s8 gSramProbe;
 #endif
+#ifdef SDSAVE
+s8 gSdSaveProbe;
+#endif
 OSMesgQueue gGameVblankQueue;
 OSMesgQueue gGfxVblankQueue;
 OSMesg gGameMesgBuf[1];
@@ -660,6 +663,9 @@ void init_controllers(void) {
 #endif
 #ifdef SRAM
     gSramProbe = nuPiInitSram();
+#endif
+#ifdef SDSAVE
+    gSdSaveProbe = sdsaveinit();
 #endif
 
     // Loop over the 4 ports and link the controller structs to the appropriate

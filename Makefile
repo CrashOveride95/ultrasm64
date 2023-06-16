@@ -55,14 +55,17 @@ $(eval $(call validate-option,LIBGCCDIR,trap divbreak nocheck))
 #   eep4k - uses EEPROM 4kbit
 #   eep16k - uses EEPROM 16kbit (There aren't any differences in syntax, but this is provided just in case)
 #   sram - uses SRAM 256Kbit
-SAVETYPE ?= eep4k
-$(eval $(call validate-option,SAVETYPE,eep4k eep16k sram))
+#   sd - uses SD
+SAVETYPE ?= sd
+$(eval $(call validate-option,SAVETYPE,eep4k eep16k sram sd))
 ifeq ($(SAVETYPE),eep4k)
   DEFINES += EEP=1 EEP4K=1
 else ifeq ($(SAVETYPE),eep16k)
   DEFINES += EEP=1 EEP16K=1
 else ifeq ($(SAVETYPE),sram)
   DEFINES += SRAM=1
+else ifeq ($(SAVETYPE),sd)
+  DEFINES += SDSAVE=1
 endif
 
 DEFINES += NO_ERRNO_H=1 NO_GZIP=1

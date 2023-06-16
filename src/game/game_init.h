@@ -49,6 +49,9 @@ extern s8 gEepromProbe;
 #ifdef SRAM
 extern s8 gSramProbe;
 #endif
+#ifdef SDSAVE
+extern s8 gSdSaveProbe;
+#endif
 
 extern void (*gGoddardVblankCallback)(void);
 extern struct Controller *gPlayer1Controller;

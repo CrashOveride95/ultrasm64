@@ -14,6 +14,7 @@
 #ifdef SRAM
 #include "sram.h"
 #endif
+#include <ff.h>
 
 #define ALIGN4(val) (((val) + 0x3) & ~0x3)
 
@@ -156,6 +157,77 @@ static s32 write_eeprom_data(void *buffer, s32 size) {
 #if ENABLE_RUMBLE
             release_rumble_pak_control();
 #endif
+        } while (triesLeft > 0 && status != 0);
+    }
+
+    return status;
+}
+#endif
+#ifdef SDSAVE
+FIL sdsavefile;
+char *path = "ultrasm64/save.bin";
+s8 sdsaveinit(void){
+    FRESULT fileres;
+    osSyncPrintf("File: %s\n", path);
+    fileres = f_open(&sdsavefile, path, FA_OPEN_ALWAYS | FA_WRITE | FA_READ);
+    if (fileres != FR_OK){
+        osSyncPrintf("f_open failed\n");
+        osSyncPrintf("f_open = %d\n",fileres);
+        return 0;
+    }
+    return 1;
+}
+static s32 read_eeprom_data(void *buffer, s32 size) {
+    s32 status = 0;
+    u32 filebytesread;
+
+    if (gSdSaveProbe != 0) {
+        s32 triesLeft = 4;
+        u32 offset = (u32)((u8 *) buffer - (u8 *) &gSaveBuffer);
+
+        do {
+            triesLeft--;
+            osSyncPrintf("reading save data from SD card\n");
+            status = f_lseek(&sdsavefile,offset);
+            if (status != FR_OK){
+                osSyncPrintf("f_lseek failed\n");
+                osSyncPrintf("f_lseek = %d\n",status);
+                return 0;
+            }
+            status = f_read(&sdsavefile, buffer, ALIGN4(size), &filebytesread);
+            if (status != FR_OK){
+                osSyncPrintf("f_read failed\n");
+                osSyncPrintf("f_read = %d\n",status);
+                return 0;
+            }
+        } while (triesLeft > 0 && status != 0);
+    }
+
+    return status;
+}
+static s32 write_eeprom_data(void *buffer, s32 size) {
+    s32 status = 1;
+    u32 filebytesread;
+
+    if (gSdSaveProbe != 0) {
+        s32 triesLeft = 4;
+        u32 offset = (u32)((u8 *) buffer - (u8 *) &gSaveBuffer);
+
+        do {
+            triesLeft--;
+            osSyncPrintf("writing save data to SD card\n");
+            status = f_lseek(&sdsavefile,offset);
+            if (status != FR_OK){
+                osSyncPrintf("f_lseek failed\n");
+                osSyncPrintf("f_lseek = %d\n",status);
+                return 0;
+            }
+            status = f_write(&sdsavefile, buffer, ALIGN4(size), &filebytesread);
+            if (status != FR_OK){
+                osSyncPrintf("f_write failed\n");
+                osSyncPrintf("f_write = %d\n",status);
+                return 0;
+            }
         } while (triesLeft > 0 && status != 0);
     }
 
