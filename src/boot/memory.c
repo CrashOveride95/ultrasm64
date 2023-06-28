@@ -381,6 +381,9 @@ void *load_segment_decompress(s32 segment, u8 *srcStart, u8 *srcEnd) {
 }
 
 void *load_filesys_segment_decompress(s32 segment, const char* path) {
+    u32	startTime;
+    u64	funcTime;
+    startTime = osGetCount();
 #ifdef UNCOMPRESSED
     void *dest = NULL;
     u32 *filebytesread = main_pool_alloc(sizeof(u32), MEMORY_POOL_RIGHT);
@@ -410,8 +413,8 @@ void *load_filesys_segment_decompress(s32 segment, const char* path) {
         return 0;
     }
 #ifdef GZIP
-    u32 compSize = (f_size(file) - 4);
     u32 realcompSize = f_size(file);
+    u32 compSize = (realcompSize - 4);
 #else
     u32 compSize = f_size(file);
 #endif
@@ -468,6 +471,8 @@ void *load_filesys_segment_decompress(s32 segment, const char* path) {
 #endif
     main_pool_free(file);
     main_pool_free(filebytesread);
+    funcTime = OS_CYCLES_TO_USEC(osGetCount() - startTime);
+    osSyncPrintf("%s decompress time = %llu [us]\n",path, funcTime);
     return dest;
 }
 
@@ -510,6 +515,9 @@ void *load_segment_decompress_heap(u32 segment, u8 *srcStart, u8 *srcEnd) {
 }
 
 void *load_filesys_segment_decompress_heap(u32 segment, const char* path) {
+    u32	startTime;
+    u32	funcTime;
+    startTime = osGetCount();
 #ifdef UNCOMPRESSED
     u32 *filebytesread = main_pool_alloc(sizeof(u32), MEMORY_POOL_RIGHT);
     FIL *file = main_pool_alloc(sizeof(FIL), MEMORY_POOL_RIGHT);
@@ -532,8 +540,8 @@ void *load_filesys_segment_decompress_heap(u32 segment, const char* path) {
         return 0;
     }
 #ifdef GZIP
-    u32 compSize = (f_size(file) - 4);
     u32 realcompSize = f_size(file);
+    u32 compSize = (realcompSize - 4);
 #else
     u32 compSize = f_size(file);
 #endif
@@ -580,7 +588,9 @@ void *load_filesys_segment_decompress_heap(u32 segment, const char* path) {
 #endif
     main_pool_free(file);
     main_pool_free(filebytesread);
+    funcTime = osGetCount() - startTime;
     return gDecompressionHeap;
+    osSyncPrintf("%s decompress time = %d [us]\n",path, funcTime);
 }
 
 void load_engine_code_segment(void) {

@@ -182,25 +182,21 @@ static s32 read_eeprom_data(void *buffer, s32 size) {
     u32 filebytesread;
 
     if (gSdSaveProbe != 0) {
-        s32 triesLeft = 4;
         u32 offset = (u32)((u8 *) buffer - (u8 *) &gSaveBuffer);
 
-        do {
-            triesLeft--;
-            osSyncPrintf("reading save data from SD card\n");
-            status = f_lseek(&sdsavefile,offset);
-            if (status != FR_OK){
-                osSyncPrintf("f_lseek failed\n");
-                osSyncPrintf("f_lseek = %d\n",status);
-                return 0;
-            }
-            status = f_read(&sdsavefile, buffer, ALIGN4(size), &filebytesread);
-            if (status != FR_OK){
-                osSyncPrintf("f_read failed\n");
-                osSyncPrintf("f_read = %d\n",status);
-                return 0;
-            }
-        } while (triesLeft > 0 && status != 0);
+        osSyncPrintf("reading save data from SD card\n");
+        status = f_lseek(&sdsavefile,offset);
+        if (status != FR_OK){
+            osSyncPrintf("f_lseek failed\n");
+            osSyncPrintf("f_lseek = %d\n",status);
+            return 1;
+        }
+        status = f_read(&sdsavefile, buffer, ALIGN4(size), &filebytesread);
+        if (status != FR_OK){
+            osSyncPrintf("f_read failed\n");
+            osSyncPrintf("f_read = %d\n",status);
+            return 1;
+        }
     }
 
     return status;
@@ -210,25 +206,21 @@ static s32 write_eeprom_data(void *buffer, s32 size) {
     u32 filebytesread;
 
     if (gSdSaveProbe != 0) {
-        s32 triesLeft = 4;
         u32 offset = (u32)((u8 *) buffer - (u8 *) &gSaveBuffer);
 
-        do {
-            triesLeft--;
-            osSyncPrintf("writing save data to SD card\n");
-            status = f_lseek(&sdsavefile,offset);
-            if (status != FR_OK){
-                osSyncPrintf("f_lseek failed\n");
-                osSyncPrintf("f_lseek = %d\n",status);
-                return 0;
-            }
-            status = f_write(&sdsavefile, buffer, ALIGN4(size), &filebytesread);
-            if (status != FR_OK){
-                osSyncPrintf("f_write failed\n");
-                osSyncPrintf("f_write = %d\n",status);
-                return 0;
-            }
-        } while (triesLeft > 0 && status != 0);
+        osSyncPrintf("writing save data to SD card\n");
+        status = f_lseek(&sdsavefile,offset);
+        if (status != FR_OK){
+            osSyncPrintf("f_lseek failed\n");
+            osSyncPrintf("f_lseek = %d\n",status);
+            return 0;
+        }
+        status = f_write(&sdsavefile, buffer, ALIGN4(size), &filebytesread);
+        if (status != FR_OK){
+            osSyncPrintf("f_write failed\n");
+            osSyncPrintf("f_write = %d\n",status);
+            return 0;
+        }
     }
 
     return status;
