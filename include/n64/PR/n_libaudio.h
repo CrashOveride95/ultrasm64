@@ -341,8 +341,8 @@ void     n_alSndpSetSound(ALSndId id);
 /*
  *  for n_audio micro code
  */
-extern long long int    n_aspMainTextStart[], n_aspMainTextEnd[];
-extern long long int    n_aspMainDataStart[], n_aspMainDataEnd[];
+extern u64    n_aspMainTextStart[], n_aspMainTextEnd[];
+extern u64    n_aspMainDataStart[], n_aspMainDataEnd[];
 
 
 #ifdef _LANGUAGE_C_PLUS_PLUS
