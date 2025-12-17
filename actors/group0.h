@@ -3,6 +3,8 @@
 
 #include "types.h"
 
+#include "config.h"
+
 // bubble
 extern const GeoLayout bubble_geo[];
 extern const GeoLayout purple_marble_geo[];
@@ -21,6 +23,7 @@ extern const GeoLayout mario_geo_face_and_wings[];
 extern const GeoLayout mario_geo_left_hand[];
 extern const GeoLayout mario_geo_right_hand[];
 extern const GeoLayout mario_geo_body[];
+#ifdef KEEP_MARIO_LODS
 extern const GeoLayout mario_geo_medium_poly_left_hand[];
 extern const GeoLayout mario_geo_medium_poly_right_hand[];
 extern const GeoLayout mario_geo_medium_poly_body[];
@@ -28,10 +31,12 @@ extern const GeoLayout mario_geo_low_poly_face_and_wings[];
 extern const GeoLayout mario_geo_low_poly_left_hand[];
 extern const GeoLayout mario_geo_low_poly_right_hand[];
 extern const GeoLayout mario_geo_low_poly_body[];
+#endif
 extern const GeoLayout mario_vanish_geo_face_and_wings[];
 extern const GeoLayout mario_vanish_geo_left_hand[];
 extern const GeoLayout mario_vanish_geo_right_hand[];
 extern const GeoLayout mario_vanish_geo_body[];
+#ifdef KEEP_MARIO_LODS
 extern const GeoLayout mario_vanish_geo_medium_poly_left_hand[];
 extern const GeoLayout mario_vanish_geo_medium_poly_right_hand[];
 extern const GeoLayout mario_vanish_geo_medium_poly_body[];
@@ -39,10 +44,12 @@ extern const GeoLayout mario_vanish_geo_low_poly_face_and_wings[];
 extern const GeoLayout mario_vanish_geo_low_poly_left_hand[];
 extern const GeoLayout mario_vanish_geo_low_poly_right_hand[];
 extern const GeoLayout mario_vanish_geo_low_poly_body[];
+#endif
 extern const GeoLayout mario_metal_geo_face_and_wings[];
 extern const GeoLayout mario_metal_geo_left_hand[];
 extern const GeoLayout mario_metal_geo_right_hand[];
 extern const GeoLayout mario_metal_geo_body[];
+#ifdef KEEP_MARIO_LODS
 extern const GeoLayout mario_metal_geo_medium_poly_left_hand[];
 extern const GeoLayout mario_metal_geo_medium_poly_right_hand[];
 extern const GeoLayout mario_metal_geo_medium_poly_body[];
@@ -50,10 +57,12 @@ extern const GeoLayout mario_metal_geo_low_poly_face_and_wings[];
 extern const GeoLayout mario_metal_geo_low_poly_left_hand[];
 extern const GeoLayout mario_metal_geo_low_poly_right_hand[];
 extern const GeoLayout mario_metal_geo_low_poly_body[];
+#endif
 extern const GeoLayout mario_metal_vanish_geo_face_and_wings[];
 extern const GeoLayout mario_metal_vanish_geo_left_hand[];
 extern const GeoLayout mario_metal_vanish_geo_right_hand[];
 extern const GeoLayout mario_metal_vanish_geo_body[];
+#ifdef KEEP_MARIO_LODS
 extern const GeoLayout mario_metal_vanish_geo_medium_poly_left_hand[];
 extern const GeoLayout mario_metal_vanish_geo_medium_poly_right_hand[];
 extern const GeoLayout mario_metal_vanish_geo_medium_poly_body[];
@@ -61,9 +70,12 @@ extern const GeoLayout mario_metal_vanish_geo_low_poly_face_and_wings[];
 extern const GeoLayout mario_metal_vanish_geo_low_poly_left_hand[];
 extern const GeoLayout mario_metal_vanish_geo_low_poly_right_hand[];
 extern const GeoLayout mario_metal_vanish_geo_low_poly_body[];
+#endif
 extern const GeoLayout mario_geo_load_body[];
+#ifdef KEEP_MARIO_LODS
 extern const GeoLayout mario_geo_load_medium_poly_body[];
 extern const GeoLayout mario_geo_load_low_poly_body[];
+#endif
 extern const GeoLayout mario_geo_render_body[];
 extern const GeoLayout mario_geo[];
 extern const Gfx mario_butt_dl[];

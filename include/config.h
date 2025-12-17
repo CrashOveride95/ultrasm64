@@ -43,6 +43,9 @@
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
+// Mario's LOD models. Disabled by default because they have no performance benefit.
+// #define KEEP_MARIO_LODS
+
 // Border Height Define for NTSC Versions
 #ifdef TARGET_N64
 #ifndef VERSION_EU
