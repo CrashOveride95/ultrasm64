@@ -71,6 +71,8 @@ OUTPUT_ARCH (mips)
    _##name##_mio0SegmentRomStart = _##name##_yay0SegmentRomStart; \
    _##name##_mio0SegmentRomEnd = _##name##_yay0SegmentRomEnd;
 
+#define LIBGODDARD_A BUILD_DIR[/\\]libgoddard.a
+
 SECTIONS
 {
    __romPos = 0;
@@ -134,12 +136,12 @@ SECTIONS
       BUILD_DIR/src/hvqm*.o(.text);
       BUILD_DIR/src/audio*.o(.text);
 #if defined(ISVPRINT) || defined(UNF)
-      */libultra_d.a:*.o(.text);
+      *libultra_d.a:*.o(.text);
 #else
-      */libultra_rom.a:*.o(.text);
+      *libultra_rom.a:*.o(.text);
 #endif
-      */libnustd.a:*.o(.text);
-      */libgcc.a:*.o(.text);
+      *libnustd.a:*.o(.text);
+      *libgcc.a:*.o(.text);
       */librtc.a:*.o(.text);
       */libz.a:*.o(.text);
       */libhvqm2.a:*.o(.text);
@@ -153,9 +155,9 @@ SECTIONS
       BUILD_DIR/src/boot*.o(.data*);
       BUILD_DIR/src/audio*.o(.data*);
 #if defined(ISVPRINT) || defined(UNF)
-      */libultra_d.a:*.o(.data*);
+      *libultra_d.a:*.o(.data*);
 #else
-      */libultra_rom.a:*.o(.data*);
+      *libultra_rom.a:*.o(.data*);
 #endif
       */libhvqm2.a:*.o(.data*);
       */librtc.a:*.o(.data*);
@@ -169,11 +171,11 @@ SECTIONS
       BUILD_DIR/src/boot*.o(.rodata*);
       BUILD_DIR/src/audio*.o(.rodata*);
 #if defined(ISVPRINT) || defined(UNF)
-      */libultra_d.a:*.o(.rodata*);
+      *libultra_d.a:*.o(.rodata*);
 #else
-      */libultra_rom.a:*.o(.rodata*);
+      *libultra_rom.a:*.o(.rodata*);
 #endif
-      */libgcc.a:*.o(.rodata*);
+      *libgcc.a:*.o(.rodata*);
       */librtc.a:*.o(.rodata*);
       */libz.a:*.o(.rodata*);
 
@@ -186,13 +188,13 @@ SECTIONS
       BUILD_DIR/src/hvqm*.o(.*bss*);
       BUILD_DIR/src/audio*.o(.*bss*);
 #if defined(ISVPRINT) || defined(UNF)
-      */libultra_d.a:*.o(COMMON);
-      */libultra_d.a:*.o(.scommon);
-      */libultra_d.a:*.o(.*bss*);
+      *libultra_d.a:*.o(COMMON);
+      *libultra_d.a:*.o(.scommon);
+      *libultra_d.a:*.o(.*bss*);
 #else
-      */libultra_rom.a:*.o(COMMON);
-      */libultra_rom.a:*.o(.scommon);
-      */libultra_rom.a:*.o(.*bss*);
+      *libultra_rom.a:*.o(COMMON);
+      *libultra_rom.a:*.o(.scommon);
+      *libultra_rom.a:*.o(.*bss*);
 #endif
       */libhvqm2.a:*.o(.bss*);
       */librtc.a:*.o(.bss*);
@@ -300,32 +302,32 @@ SECTIONS
       BUILD_DIR/src/menu*.o(.data*);
       BUILD_DIR/src/menu*.o(.rodata*);
 #ifdef GODDARD
-      BUILD_DIR/libgoddard.a:*.o(.text);
+      LIBGODDARD_A:*.o(.text);
       /* goddard subsystem data */
-      BUILD_DIR/libgoddard.a:gd_main.o(.data*);
-      BUILD_DIR/libgoddard.a:draw_objects.o(.data*);
-      BUILD_DIR/libgoddard.a:objects.o(.data*);
-      BUILD_DIR/libgoddard.a:particles.o(.data*);
-      BUILD_DIR/libgoddard.a:dynlist_proc.o(.data*);
-      BUILD_DIR/libgoddard.a:debug_utils.o(.data*);
-      BUILD_DIR/libgoddard.a:joints.o(.data*);
-      BUILD_DIR/libgoddard.a:shape_helper.o(.data*);
-      BUILD_DIR/libgoddard.a:renderer.o(.data*);
+      LIBGODDARD_A:gd_main.o(.data*);
+      LIBGODDARD_A:draw_objects.o(.data*);
+      LIBGODDARD_A:objects.o(.data*);
+      LIBGODDARD_A:particles.o(.data*);
+      LIBGODDARD_A:dynlist_proc.o(.data*);
+      LIBGODDARD_A:debug_utils.o(.data*);
+      LIBGODDARD_A:joints.o(.data*);
+      LIBGODDARD_A:shape_helper.o(.data*);
+      LIBGODDARD_A:renderer.o(.data*);
       /* goddard subsystem rodata */
-      BUILD_DIR/libgoddard.a:gd_main.o(.rodata*);
-      BUILD_DIR/libgoddard.a:gd_memory.o(.rodata*);
-      BUILD_DIR/libgoddard.a:draw_objects.o(.rodata*);
-      BUILD_DIR/libgoddard.a:objects.o(.rodata*);
-      BUILD_DIR/libgoddard.a:skin_movement.o(.rodata*);
-      BUILD_DIR/libgoddard.a:particles.o(.rodata*);
-      BUILD_DIR/libgoddard.a:dynlist_proc.o(.rodata*);
-      BUILD_DIR/libgoddard.a:old_menu.o(.rodata*);
-      BUILD_DIR/libgoddard.a:debug_utils.o(.rodata*);
-      BUILD_DIR/libgoddard.a:joints.o(.rodata*);
-      BUILD_DIR/libgoddard.a:skin.o(.rodata*);
-      BUILD_DIR/libgoddard.a:gd_math.o(.rodata*);
-      BUILD_DIR/libgoddard.a:shape_helper.o(.rodata*);
-      BUILD_DIR/libgoddard.a:renderer.o(.rodata*);
+      LIBGODDARD_A:gd_main.o(.rodata*);
+      LIBGODDARD_A:gd_memory.o(.rodata*);
+      LIBGODDARD_A:draw_objects.o(.rodata*);
+      LIBGODDARD_A:objects.o(.rodata*);
+      LIBGODDARD_A:skin_movement.o(.rodata*);
+      LIBGODDARD_A:particles.o(.rodata*);
+      LIBGODDARD_A:dynlist_proc.o(.rodata*);
+      LIBGODDARD_A:old_menu.o(.rodata*);
+      LIBGODDARD_A:debug_utils.o(.rodata*);
+      LIBGODDARD_A:joints.o(.rodata*);
+      LIBGODDARD_A:skin.o(.rodata*);
+      LIBGODDARD_A:gd_math.o(.rodata*);
+      LIBGODDARD_A:shape_helper.o(.rodata*);
+      LIBGODDARD_A:renderer.o(.rodata*);
 #endif
    }
    END_SEG(goddard)
@@ -333,7 +335,7 @@ SECTIONS
    {
       BUILD_DIR/src/menu*.o(.bss*);
 #ifdef GODDARD
-      BUILD_DIR/libgoddard.a:*.o(.bss*);
+      LIBGODDARD_A:*.o(.bss*);
 #endif
    }
    END_NOLOAD(goddard)
@@ -360,23 +362,23 @@ SECTIONS
 #ifdef GODDARD
    BEGIN_SEG(gd_dynlists, 0x04000000)
    {
-      BUILD_DIR/libgoddard.a:dynlist_test_cube.o(.data);
-      BUILD_DIR/libgoddard.a:dynlist_unused.o(.data);
-      BUILD_DIR/libgoddard.a:dynlist_mario_face.o(.data);
-      BUILD_DIR/libgoddard.a:dynlists_mario_eyes.o(.data);
-      BUILD_DIR/libgoddard.a:dynlists_mario_eyebrows_mustache.o(.data);
-      BUILD_DIR/libgoddard.a:dynlist_mario_master.o(.data);
-      BUILD_DIR/libgoddard.a:anim_mario_mustache_right.o(.data);
-      BUILD_DIR/libgoddard.a:anim_mario_mustache_left.o(.data);
-      BUILD_DIR/libgoddard.a:anim_mario_lips_1.o(.data);
-      BUILD_DIR/libgoddard.a:anim_mario_lips_2.o(.data);
-      BUILD_DIR/libgoddard.a:anim_mario_eyebrows_1.o(.data);
-      BUILD_DIR/libgoddard.a:anim_group_1.o(.data);
-      BUILD_DIR/libgoddard.a:anim_group_2.o(.data);
-      BUILD_DIR/libgoddard.a:dynlist_test_cube.o(.rodata*);
-      BUILD_DIR/libgoddard.a:dynlist_unused.o(.rodata*);
-      BUILD_DIR/libgoddard.a:*.o(.data);
-      BUILD_DIR/libgoddard.a:*.o(.rodata);
+      LIBGODDARD_A:dynlist_test_cube.o(.data);
+      LIBGODDARD_A:dynlist_unused.o(.data);
+      LIBGODDARD_A:dynlist_mario_face.o(.data);
+      LIBGODDARD_A:dynlists_mario_eyes.o(.data);
+      LIBGODDARD_A:dynlists_mario_eyebrows_mustache.o(.data);
+      LIBGODDARD_A:dynlist_mario_master.o(.data);
+      LIBGODDARD_A:anim_mario_mustache_right.o(.data);
+      LIBGODDARD_A:anim_mario_mustache_left.o(.data);
+      LIBGODDARD_A:anim_mario_lips_1.o(.data);
+      LIBGODDARD_A:anim_mario_lips_2.o(.data);
+      LIBGODDARD_A:anim_mario_eyebrows_1.o(.data);
+      LIBGODDARD_A:anim_group_1.o(.data);
+      LIBGODDARD_A:anim_group_2.o(.data);
+      LIBGODDARD_A:dynlist_test_cube.o(.rodata*);
+      LIBGODDARD_A:dynlist_unused.o(.rodata*);
+      LIBGODDARD_A:*.o(.data);
+      LIBGODDARD_A:*.o(.rodata);
    }
    END_SEG(gd_dynlists)
 #endif

@@ -608,7 +608,7 @@ https://github.com/buu342/N64-UNFLoader
             {
                 s32 bpoll;
                 #ifndef LIBDRAGON
-                    osPiReadIo(0xB80002F8, &bpoll);
+                    osPiReadIo(0xB80002F8, (u32 *)&bpoll);
                 #else
                     bpoll = io_read(0xB80002F8);
                 #endif
@@ -734,10 +734,12 @@ https://github.com/buu342/N64-UNFLoader
                                 dataleft = 0;
                             break;
                         }
+                        // fallthrough
                     case '@':
                         filestep++;
                         if (filestep < 3)
                             break;
+                        // fallthrough
                     default:
                         // Decide what to do based on the file handle
                         if (filestep == 0 && debug_command_incoming_start[tok] == -1)
