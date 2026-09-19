@@ -87,7 +87,7 @@ void ff_mutex_delete (	/* Returns 1:Function succeeded or 0:Could not delete due
 {
 #if OS_TYPE == 0	/* libultra */
 	(void)vol;
-	return 1;
+	return;
 
 #endif
 }
