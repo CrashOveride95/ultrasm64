@@ -608,7 +608,7 @@ https://github.com/buu342/N64-UNFLoader
             {
                 s32 bpoll;
                 #ifndef LIBDRAGON
-                    osPiReadIo(0xB80002F8, &bpoll);
+                    osPiReadIo(0xB80002F8, (u32 *)&bpoll);
                 #else
                     bpoll = io_read(0xB80002F8);
                 #endif
