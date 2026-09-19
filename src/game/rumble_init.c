@@ -254,8 +254,12 @@ static void thread6_rumble_loop(UNUSED void *a0) {
                 sRumblePakActive = FALSE;
             }
         } else if (gNumVblanks % 60 == 0) {
+            block_until_rumble_pak_free();
+
             sRumblePakActive = osMotorInit(&gSIEventMesgQueue, &gRumblePakPfs, gPlayer1Controller->port) < 1;
             sRumblePakErrorCount = 0;
+
+            release_rumble_pak_control();
         }
 
         if (gRumblePakTimer > 0) {
@@ -265,6 +269,8 @@ static void thread6_rumble_loop(UNUSED void *a0) {
 }
 
 void cancel_rumble(void) {
+    block_until_rumble_pak_free();
+
     sRumblePakActive = osMotorInit(&gSIEventMesgQueue, &gRumblePakPfs, gPlayer1Controller->port) < 1;
 
     if (sRumblePakActive) {
@@ -279,6 +285,8 @@ void cancel_rumble(void) {
     gCurrRumbleSettings.unk0A = 0;
 
     gRumblePakTimer = 0;
+
+    release_rumble_pak_control();
 }
 
 void create_thread_6(void) {

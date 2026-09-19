@@ -1,3 +1,5 @@
+#include "config.h"
+
 // Normal Mario Geo
 
 // 0x170002E0
@@ -170,6 +172,7 @@ const GeoLayout mario_geo_body[] = {
 };
 
 // 0x170006F8
+#ifdef KEEP_MARIO_LODS
 const GeoLayout mario_geo_medium_poly_left_hand[] = {
    GEO_SWITCH_CASE(1, geo_switch_mario_hand),
    GEO_OPEN_NODE(),
@@ -452,6 +455,7 @@ const GeoLayout mario_geo_low_poly_body[] = {
    GEO_CLOSE_NODE(),
    GEO_RETURN(),
 };
+#endif
 
 // Vanish Mario Geo
 
@@ -625,6 +629,7 @@ const GeoLayout mario_vanish_geo_body[] = {
 };
 
 // 0x17001204
+#ifdef KEEP_MARIO_LODS
 const GeoLayout mario_vanish_geo_medium_poly_left_hand[] = {
    GEO_SWITCH_CASE(1, geo_switch_mario_hand),
    GEO_OPEN_NODE(),
@@ -907,6 +912,7 @@ const GeoLayout mario_vanish_geo_low_poly_body[] = {
    GEO_CLOSE_NODE(),
    GEO_RETURN(),
 };
+#endif
 
 // Metal Mario Geo
 
@@ -1060,6 +1066,7 @@ const GeoLayout mario_metal_geo_body[] = {
 };
 
 // 0x17001C80
+#ifdef KEEP_MARIO_LODS
 const GeoLayout mario_metal_geo_medium_poly_left_hand[] = {
    GEO_SWITCH_CASE(1, geo_switch_mario_hand),
    GEO_OPEN_NODE(),
@@ -1322,6 +1329,7 @@ const GeoLayout mario_metal_geo_low_poly_body[] = {
    GEO_CLOSE_NODE(),
    GEO_RETURN(),
 };
+#endif
 
 // Metal Vanish Mario Geo
 
@@ -1475,6 +1483,7 @@ const GeoLayout mario_metal_vanish_geo_body[] = {
 };
 
 // 0x1700266C
+#ifdef KEEP_MARIO_LODS
 const GeoLayout mario_metal_vanish_geo_medium_poly_left_hand[] = {
    GEO_SWITCH_CASE(0, geo_switch_mario_hand),
    GEO_OPEN_NODE(),
@@ -1740,6 +1749,7 @@ const GeoLayout mario_metal_vanish_geo_low_poly_body[] = {
    GEO_CLOSE_NODE(),
    GEO_RETURN(),
 };
+#endif
 
 // High Poly
 
@@ -1758,6 +1768,7 @@ const GeoLayout mario_geo_load_body[] = {
 // Medium Poly
 
 // 0x17002D14
+#ifdef KEEP_MARIO_LODS
 const GeoLayout mario_geo_load_medium_poly_body[] = {
    GEO_SWITCH_CASE(0, geo_switch_mario_cap_effect),
    GEO_OPEN_NODE(),
@@ -1768,10 +1779,12 @@ const GeoLayout mario_geo_load_medium_poly_body[] = {
    GEO_CLOSE_NODE(),
    GEO_RETURN(),
 };
+#endif
 
 // Low Poly
 
 // 0x17002D48
+#ifdef KEEP_MARIO_LODS
 const GeoLayout mario_geo_load_low_poly_body[] = {
    GEO_SWITCH_CASE(0, geo_switch_mario_cap_effect),
    GEO_OPEN_NODE(),
@@ -1782,11 +1795,13 @@ const GeoLayout mario_geo_load_low_poly_body[] = {
    GEO_CLOSE_NODE(),
    GEO_RETURN(),
 };
+#endif
 
 // 0x17002D7C
 const GeoLayout mario_geo_render_body[] = {
    GEO_NODE_START(),
    GEO_OPEN_NODE(),
+   #ifdef KEEP_MARIO_LODS
       GEO_RENDER_RANGE(-2048, 600),
       GEO_OPEN_NODE(),
          GEO_BRANCH(1, mario_geo_load_body),
@@ -1799,6 +1814,9 @@ const GeoLayout mario_geo_render_body[] = {
       GEO_OPEN_NODE(),
          GEO_BRANCH(1, mario_geo_load_low_poly_body),
       GEO_CLOSE_NODE(),
+   #else
+      GEO_BRANCH(1, mario_geo_load_body),
+   #endif
    GEO_CLOSE_NODE(),
    GEO_RETURN(),
 };

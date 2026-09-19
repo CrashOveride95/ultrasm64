@@ -49,13 +49,17 @@ def remove_file(fname):
 def clean_assets(local_asset_file):
     assets = set(read_asset_map().keys())
     assets.update(read_local_asset_list(local_asset_file))
-    for fname in list(assets) + [".assets-local.txt"]:
+    for fname in list(assets):
         if fname.startswith("@"):
             continue
         try:
             remove_file(fname)
         except FileNotFoundError:
             pass
+
+    if local_asset_file is not None:
+        local_asset_file.close()
+        remove_file(".assets-local.txt")
 
 
 def main():
@@ -155,9 +159,15 @@ def main():
             sys.exit(1)
 
     # Make sure tools exist
-    subprocess.check_call(
-        ["make", "-s", "-C", "tools/", "n64graphics", "skyconv", "mio0", "aifc_decode"]
-    )
+    tools = [ "n64graphics", "skyconv", "mio0", "aifc_decode" ]
+    if os.name == 'nt':
+        tools = [tool + ".exe" for tool in tools]
+        make = "mingw32-make"
+    else:
+        make = "make"
+
+    cmd = [make, "-s", "-C", "tools/"] + tools
+    subprocess.check_call(cmd)
 
     # Go through the assets in roughly alphabetical order (but assets in the same
     # mio0 file still go together).
